@@ -29,19 +29,42 @@
   <style>
     html { scroll-behavior: smooth; }
     .nav-blur { backdrop-filter: saturate(180%) blur(10px); }
+    a[href="#"] {
+      pointer-events: none;
+      cursor: default;
+      text-decoration: none;
+      color: inherit;
+    }
+    a[href="#"]:hover { color: inherit; }
   </style>
 </head>
 <body class="bg-slate-50 text-slate-800 dark:bg-slate-950 dark:text-slate-100">
   <!-- Header / Nav -->
   <header class="fixed top-0 inset-x-0 z-40 nav-blur bg-white/70 dark:bg-slate-900/60 border-b border-slate-200/60 dark:border-slate-800">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 h-14 flex items-center justify-between">
-      <a href="#home" class="font-semibold tracking-tight hover:text-brand-600 dark:hover:text-brand-300 transition">Somdip.ML.dev</a>
+      <div class="flex items-center gap-2">
+        <!-- Clickable avatar -->
+        <button id="avatarToggle" type="button" aria-expanded="false" aria-controls="avatarModal"
+                class="shrink-0 w-7 h-7 rounded-full overflow-hidden ring-1 ring-white/40 dark:ring-slate-700/60 focus:outline-none focus:ring-2 focus:ring-brand-500">
+          <img
+            src="assets/img/me-320.webp"
+            srcset="assets/img/me-320.webp 1x, assets/img/me-640.webp 2x"
+            alt="Open photo of Somdip Sen"
+            class="w-full h-full object-cover"
+          />
+        </button>
+
+        <!-- Brand stays a normal link -->
+        <a href="#home" class="font-semibold tracking-tight hover:text-brand-600 dark:hover:text-brand-300 transition">
+          Somdip.ML.dev
+        </a>
+      </div>
       <nav class="hidden sm:flex items-center gap-6 text-sm">
         <a class="hover:text-brand-600 dark:hover:text-brand-300 transition" href="#projects">Projects</a>
         <a class="hover:text-brand-600 dark:hover:text-brand-300 transition" href="#skills">Skills</a>
         <a class="hover:text-brand-600 dark:hover:text-brand-300 transition" href="#experience">Experience</a>
         <a class="hover:text-brand-600 dark:hover:text-brand-300 transition" href="#education">Education</a>
-        <a class="hover:text-brand-600 dark:hover:text-brand-300 transition" href="#contact">Contact</a>
+        <a class="hover:text-brand-600 dark:hover:text-brand-300 transition" href="appendix.html">Appendix</a>
       </nav>
       <div class="flex items-center gap-2">
         <button id="themeToggle" aria-label="Toggle theme" class="p-2 rounded-xl border border-slate-200 dark:border-slate-800 hover:border-brand-400 dark:hover:border-brand-600 transition">
@@ -58,7 +81,7 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 grid md:grid-cols-2 gap-10 items-center">
       <div class="animate-fadeUp">
         <h1 class="text-3xl sm:text-4xl font-semibold leading-tight">Hi, I’m <span class="text-brand-600 dark:text-brand-400">Somdip Sen</span> — AI/ML Engineer</h1>
-        <p class="mt-4 text-slate-600 dark:text-slate-300">M.Tech @ IIT Guwahati. I build production‑ready AI systems across classical ML, deep learning, and LLM/RAG, with a focus on MLOps and lightweight, edge‑friendly deployments.</p>
+        <p class="mt-4 text-slate-600 dark:text-slate-300">M.Tech (Robotics & AI) @ IIT Guwahati. I study/build AI systems across classical ML, deep learning, and LLM/RAG, with a focus on MLOps and lightweight, edge‑friendly deployments.</p>
         <div class="mt-6 flex flex-wrap gap-3">
           <a href="#projects" class="px-4 py-2 rounded-xl bg-brand-600 text-white hover:bg-brand-700 transition shadow-soft">View Projects</a>
           <a target="_blank" href="https://github.com/Somdip-Sen" class="px-4 py-2 rounded-xl border border-slate-300 dark:border-slate-700 hover:border-brand-400 dark:hover:border-brand-600 transition">GitHub</a>
@@ -73,13 +96,13 @@
               <li class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800">Python</li>
               <li class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800">Pandas/NumPy</li>
               <li class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800">PyTorch</li>
-              <li class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800">TensorFlow/Keras</li>
-              <li class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800">scikit‑learn</li>
-              <li class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800">Docker/K8s</li>
+              <li class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800">Gen AI</li>
+              <li class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800">Monitoring</li>
+              <li class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800">Docker</li>
               <li class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800">MLflow</li>
               <li class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800">FastAPI/Flask</li>
-              <li class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800">AWS/GCP</li>
-              <li class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800">LangChain/RAG</li>
+              <li class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800">Cloud</li>
+              <li class="px-3 py-2 rounded-lg bg-slate-100 dark:bg-slate-800">RAG</li>
             </ul>
           </div>
         </div>
@@ -92,7 +115,7 @@
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <div class="flex items-end justify-between mb-6">
         <h2 class="text-2xl font-semibold">Projects</h2>
-        <a class="text-sm text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300" target="_blank" href="https://github.com/yourusername?tab=repositories">All repos →</a>
+        <a class="text-sm text-brand-600 hover:text-brand-700 dark:text-brand-400 dark:hover:text-brand-300" target="_blank" href="https://github.com/Somdip-Sen?tab=repositories">All repos →</a>
       </div>
       <div class="grid md:grid-cols-2 gap-6">
         <!-- Project 1: Detector-Free Multi-Face Tracking -->
@@ -103,23 +126,23 @@
           </div>
           <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Two‑part deliverable: (1) SEA FACES WILD — an in‑the‑wild, Southeast‑Asia–focused multi‑face tracking corpus with &gt;35k tracks from 50+ city videos; (2) a lightweight face‑search stack for shared edge devices. Building a detector‑free, autoregressive tracker with robust track‑switch recovery.</p>
           <ul class="mt-3 text-xs text-slate-500 flex flex-wrap gap-2">
-            <li class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded">RetinaFace</li>
+            <li class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded">MobileNet V2</li>
             <li class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded">ArcFace</li>
-            <li class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded">FAISS</li>
+            <li class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded">DeepSORT</li>
             <li class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded">PyTorch</li>
           </ul>
           <div class="mt-4 flex gap-3">
             <a target="_blank" href="https://github.com/Somdip-Sen/Lightweight_Face_Tracker--MTP.git" class="text-sm inline-flex items-center gap-1 hover:text-brand-600">GitHub ↗</a>
-            <a href="#" class="text-sm inline-flex items-center gap-1 hover:text-brand-600">Demo (soon)</a>
+            <a href="#" class="text-sm inline-flex items-center gap-1 hover:text-brand-600">Demo (locally available)</a>
           </div>
         </article>
         <!-- Project 2: Brain MRI Tumor Detection Platform -->
         <article class="group rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 p-5 hover:shadow-soft transition">
           <div class="flex items-center justify-between">
             <h3 class="text-lg font-semibold">Lightweight Diagnostic: Brain MRI Tumor Detection</h3>
-            <span class="text-xs px-2 py-1 rounded-full bg-emerald-600/10 text-emerald-700 dark:text-emerald-300">Healthcare</span>
+            <span class="text-xs px-2 py-1 rounded-full bg-emerald-600/10 text-emerald-700 dark:text-emerald-300">VISION</span>
           </div>
-          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">End‑to‑end browser‑based screening pipeline trained on remote dual A100s with MONAI. Achieved <span class="font-medium">98.1% recall</span> with &lt; 1.5% false negatives on curated sets; packaged as a multi‑stage Docker image with CPU/GPU auto‑switching and FastAPI serving.</p>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">End‑to‑end browser‑based screening pipeline trained on remote dual A100s with MONAI. Achieved <span class="font-medium">98.1% recall</span> with &lt; 1.5% false negatives on curated sets; packaged as a multi‑stage docker image with CPU/GPU auto‑switching and FastAPI serving.</p>
           <ul class="mt-3 text-xs text-slate-500 flex flex-wrap gap-2">
             <li class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded">PyTorch</li>
             <li class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded">MONAI</li>
@@ -128,40 +151,45 @@
           </ul>
           <div class="mt-4 flex gap-3">
             <a target="_blank" href="https://github.com/Somdip-Sen/MRI_tumor_detection.git" class="text-sm inline-flex items-center gap-1 hover:text-brand-600">GitHub ↗</a>
-            <a href="#" class="text-sm inline-flex items-center gap-1 hover:text-brand-600">Demo (soon)</a>
+            <a href="#" class="text-sm inline-flex items-center gap-1 hover:text-brand-600">Demo (locally available)</a>
           </div>
         </article>
         <!-- Project 3: LLM RAG -->
         <article class="group rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 p-5 hover:shadow-soft transition">
           <div class="flex items-center justify-between">
-            <h3 class="text-lg font-semibold">CV–JD Matching Copilot (LLM + RAG)</h3>
+            <h3 class="text-lg font-semibold">CV Retrival Copilot for HR (RAG Based)</h3>
             <span class="text-xs px-2 py-1 rounded-full bg-violet-600/10 text-violet-700 dark:text-violet-300">LLM</span>
           </div>
-          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">LangGraph‑based multi‑agent pipeline generating synthetic CVs, retrieval with vector DB, reranking, and committee judging. Tracing + observability with Langfuse; modular retrievers/rerankers with MLflow‑tracked experiments.</p>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">LangGraph‑based Indianized multi‑agent pipeline generating synthetic CV-JD, retrieval with vector DB, reranking, and committee judging. Tracing + observability with Langfuse; modular retrievers/rerankers with MLflow‑tracked experiments.</p>
           <ul class="mt-3 text-xs text-slate-500 flex flex-wrap gap-2">
-            <li class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded">LangChain/LangGraph</li>
-            <li class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded">FAISS/Pinecone</li>
+            <li class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded">Gemini API</li>
+            <li class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded">FAISS</li>
             <li class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded">MLflow</li>
             <li class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded">FastAPI</li>
           </ul>
           <div class="mt-4 flex gap-3">
             <a target="_blank" href="https://github.com/Somdip-Sen/intelligent_cv_sorter.git" class="text-sm inline-flex items-center gap-1 hover:text-brand-600">GitHub ↗</a>
+            <a href="#" class="text-sm inline-flex items-center gap-1 hover:text-brand-600">Work in Progress</a>
           </div>
         </article>
-        <!-- Project 4: StackGAN (example) -->
+        <!-- Project 4: Multiplayer Tic-Tac-Toe (Android) -->
         <article class="group rounded-2xl border border-slate-200 dark:border-slate-800 bg-white/70 dark:bg-slate-900/50 p-5 hover:shadow-soft transition">
           <div class="flex items-center justify-between">
-            <h3 class="text-lg font-semibold">Text‑to‑Image with StackGAN (Course Project)</h3>
-            <span class="text-xs px-2 py-1 rounded-full bg-amber-600/10 text-amber-700 dark:text-amber-300">Vision</span>
+            <h3 class="text-lg font-semibold">Multiplayer Tic-Tac-Toe (Android)</h3>
+            <span class="text-xs px-2 py-1 rounded-full bg-amber-600/10 text-amber-700 dark:text-amber-300">BTP</span>
           </div>
-          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Implemented and optimized StackGAN for higher‑fidelity text‑to‑image synthesis; improved semantic alignment and image realism. Deployed training/serving notebooks and documented evaluation pipeline.</p>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">
+            Native Android Tic-Tac-Toe built in Java with single-device play + real-time multiplayer over
+            <span class="whitespace-nowrap">Wi-Fi Direct</span> and Bluetooth (beta). Includes a custom-drawn board,
+            smooth animations, sound effects, and scorekeeping.
+          </p>
           <ul class="mt-3 text-xs text-slate-500 flex flex-wrap gap-2">
-            <li class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded">TensorFlow</li>
-            <li class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded">GANs</li>
-            <li class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded">Matplotlib</li>
+            <li class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded">Android</li>
+            <li class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded">Java</li>
+            <li class="px-2 py-1 bg-slate-100 dark:bg-slate-800 rounded">Multiplayer (LAN)</li>
           </ul>
           <div class="mt-4 flex gap-3">
-            <a target="_blank" href="https://github.com/yourusername/stackgan-course" class="text-sm inline-flex items-center gap-1 hover:text-brand-600">GitHub ↗</a>
+            <a target="_blank" href="https://github.com/Somdip-Sen/multiplayerTicTacToeGame" class="text-sm inline-flex items-center gap-1 hover:text-brand-600">GitHub ↗</a>
           </div>
         </article>
       </div>
@@ -177,17 +205,17 @@
           <h3 class="font-semibold">Core</h3>
           <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Python, C/C++, Java · Linear Algebra, Calculus, Probability · DS & Algos, OS, DBMS, Networks · Git/GitHub</p>
           <h3 class="mt-5 font-semibold">Data Science</h3>
-          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Pandas, NumPy, SQL, Feature Engineering, EDA, Visualization (Matplotlib, Seaborn), Statsmodels</p>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">Pandas, NumPy, SQL, Feature Engineering, EDA, Visualization, Pipeline, Statsmodels</p>
           <h3 class="mt-5 font-semibold">Cloud & DevOps</h3>
-          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">AWS (SageMaker, S3, EC2) · GCP (Vertex AI, BigQuery – familiar) · Docker, Kubernetes, CI/CD (GitHub Actions)</p>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">(AWS · GCP ) – familiar · Docker, CI/CD (GitHub Actions)</p>
         </div>
         <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50">
           <h3 class="font-semibold">ML / DL</h3>
-          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">scikit‑learn, PyTorch, TensorFlow/Keras · Regression, Trees, Ensembles (XGBoost/LightGBM), Clustering, PCA · CNNs, RNNs, Transformers · Metrics (Accuracy, F1, ROC‑AUC) · Interpretability (SHAP, LIME)</p>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">PyTorch · Regression, Trees, Ensembles (XGBoost/LightGBM), Clustering, PCA · CNNs, RNNs, Transformers · Metrics (Accuracy, F1, ROC‑AUC) · Interpretability (SHAP, LIME)</p>
           <h3 class="mt-5 font-semibold">LLMs & Agentic AI</h3>
-          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">LangChain/LangGraph, RAG, Vector DBs (FAISS, Pinecone, Weaviate), Prompt Engineering, Hugging Face</p>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">LangChain/LangGraph, RAG, Vector DBs (FAISS), Prompt Engineering, Hugging Face</p>
           <h3 class="mt-5 font-semibold">MLOps</h3>
-          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">MLflow (tracking), FastAPI/Flask (serving), Monitoring (Prometheus, Grafana – familiar), DVC (data versioning – familiar), Airflow/Prefect (orchestration – familiar)</p>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">MLflow (tracking), FastAPI/Flask (serving), Monitoring (Prometheus, Grafana – familiar), DVC (data versioning – familiar)</p>
         </div>
       </div>
     </div>
@@ -195,45 +223,88 @@
 
   <!-- Experience -->
   <section id="experience" class="py-14 border-t border-slate-200/80 dark:border-slate-800">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
-      <h2 class="text-2xl font-semibold mb-6">Experience</h2>
-      <div class="relative">
-        <div class="absolute left-3 top-0 bottom-0 w-px bg-slate-200 dark:bg-slate-800"></div>
-        <div class="pl-8 space-y-6">
-          <div class="relative">
-            <div class="absolute -left-1.5 mt-1 w-3 h-3 rounded-full bg-brand-600"></div>
-            <h3 class="font-semibold">Tata Consultancy Services (TCS) — Database Administrator <span class="text-xs font-normal text-slate-500">Aug 2021 – Mar 2023 · Kolkata (Hybrid)</span></h3>
-            <ul class="mt-2 text-sm text-slate-600 dark:text-slate-300 list-disc pl-5 space-y-1">
-              <li>Tuned Oracle 11g/12c/19c workloads; cut report latency by <strong>35%</strong>; improved uptime to <strong>99.9%</strong> with automated ops (health checks, backups/restore, user mgmt, failover).</li>
-              <li>Scripted DBA tasks in Bash; strengthened indexing and query plans for production and test DBs.</li>
-            </ul>
-          </div>
-          <div class="relative">
-            <div class="absolute -left-1.5 mt-1 w-3 h-3 rounded-full bg-brand-600"></div>
-            <h3 class="font-semibold">Freelance — Web Design & Private Tutoring <span class="text-xs font-normal text-slate-500">2019 – 2024 · Kolkata</span></h3>
-            <ul class="mt-2 text-sm text-slate-600 dark:text-slate-300 list-disc pl-5 space-y-1">
-              <li>Delivered <strong>15+ </strong> paid web & content projects (Fiverr rating 4.8/5; 82%+ repeat/referrals).</li>
-              <li>Tutored CS for school → college; 90% of students scored ≥80% in finals.</li>
-            </ul>
-          </div>
+  <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+    <h2 class="text-2xl font-semibold mb-6">Experience</h2>
+
+    <div class="relative">
+      <div class="absolute left-3 top-0 bottom-0 w-px bg-slate-200 dark:bg-slate-800"></div>
+
+      <div class="pl-8 space-y-6">
+        <!-- Entry 1 -->
+        <div style="position:relative; padding-top:.6rem;">
+          <span aria-hidden="true"
+                style="position:absolute; left:-1.625rem; top:.9rem; width:.75rem; height:.75rem; border-radius:9999px; background:#06b6d4;"></span>
+
+          <h3 class="font-semibold flex flex-wrap items-baseline gap-x-2" style="margin:0;">
+            <a href="https://www.tcs.com/"
+               target="_blank" rel="noopener noreferrer"
+               class="text-brand-600 hover:text-brand-700 underline underline-offset-4 decoration-2 inline-flex items-center gap-1">
+              Tata Consultancy Services (TCS)
+              <span aria-hidden="true" class="text-xs">↗</span>
+            </a>
+            <span>— Database Administrator</span>
+            <span class="text-xs font-normal text-slate-500 sm:ml-2">Aug 2021 – Mar 2023 · Kolkata (Hybrid)</span>
+          </h3>
+
+          <ul class="mt-2 text-sm text-slate-600 dark:text-slate-300 list-disc pl-5 space-y-1">
+            <li>Tuned Oracle 11g/12c/19c workloads; cut report latency by <strong>35%</strong>; improved uptime to <strong>99.9%</strong> with automated ops (health checks, backups/restore, user mgmt, failover).</li>
+            <li>Scripted DBA tasks in Bash; strengthened indexing and query plans for production and test DBs.</li>
+          </ul>
+        </div>
+
+        <!-- Entry 2 -->
+        <div style="position:relative; padding-top:.6rem;">
+          <span aria-hidden="true"
+                style="position:absolute; left:-1.625rem; top:.9rem; width:.75rem; height:.75rem; border-radius:9999px; background:#06b6d4;"></span>
+
+          <h3 class="font-semibold" style="margin:0;">
+            Freelance — Web Design & Private Tutoring
+            <span class="text-xs font-normal text-slate-500">2019 – 2024 · Kolkata</span>
+          </h3>
+          <ul class="mt-2 text-sm text-slate-600 dark:text-slate-300 list-disc pl-5 space-y-1">
+            <li>Delivered <strong>15+</strong> paid web & content projects (
+              <a href="https://www.fiverr.com"
+               target="_blank" rel="noopener noreferrer"
+               class="text-brand-600 hover:text-brand-700 underline underline-offset-4 decoration-2 inline-flex items-center gap-1">
+              Fiverr
+            </a> rating 4.8/5; 82%+ repeat/referrals).</li>
+            <li>Tutored CS for school → college; 90% of students scored ≥80% in finals.</li>
+          </ul>
         </div>
       </div>
     </div>
-  </section>
+  </div>
+</section>
 
   <!-- Education -->
   <section id="education" class="py-14 border-t border-slate-200/80 dark:border-slate-800">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
       <h2 class="text-2xl font-semibold mb-6">Education</h2>
       <div class="grid md:grid-cols-2 gap-6">
-        <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50">
-          <h3 class="font-semibold">M.Tech — IIT Guwahati <span class="text-xs font-normal text-slate-500">2024 – Present</span></h3>
-          <p class="text-sm text-slate-600 dark:text-slate-300">CPI 8.61 (current)</p>
-        </div>
-        <div class="rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50">
-          <h3 class="font-semibold">B.Tech — GCETTS, Serampore <span class="text-xs font-normal text-slate-500">2017 – 2021</span></h3>
-          <p class="text-sm text-slate-600 dark:text-slate-300">CPI 9.07</p>
-        </div>
+        <a href="https://www.iitg.ac.in/"
+           target="_blank" rel="noopener noreferrer"
+           class="group block rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50
+                  hover:border-brand-400 dark:hover:border-brand-600 hover:shadow-soft cursor-pointer
+                  focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
+          <h3 class="font-semibold flex items-center gap-2">
+            <span class="underline underline-offset-4 decoration-2 group-hover:text-brand-600">M.Tech (Robotics & AI) — IIT Guwahati</span>
+            <span aria-hidden="true" class="text-xs opacity-70">↗</span>
+            <span class="ml-auto text-xs font-normal text-slate-500">2024 – Present</span>
+          </h3>
+          <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">CPI 8.61 (current)</p>
+        </a>
+       <a href="https://www.gcetts.ac.in"
+         target="_blank" rel="noopener noreferrer"
+         class="group block rounded-2xl border border-slate-200 dark:border-slate-800 p-6 bg-white/70 dark:bg-slate-900/50
+                hover:border-brand-400 dark:hover:border-brand-600 hover:shadow-soft cursor-pointer
+                focus:outline-none focus-visible:ring-2 focus-visible:ring-brand-500">
+        <h3 class="font-semibold flex items-center gap-2">
+          <span class="underline underline-offset-4 decoration-2 group-hover:text-brand-600">B.Tech (IT) — GCETTS, Serampore</span>
+          <span aria-hidden="true" class="text-xs opacity-70">↗</span>
+          <span class="ml-auto text-xs font-normal text-slate-500">2017 – 2021</span>
+        </h3>
+        <p class="mt-2 text-sm text-slate-600 dark:text-slate-300">CPI 9.07</p>
+      </a>
       </div>
     </div>
   </section>
@@ -252,6 +323,25 @@
     </div>
   </section>
 
+  <!-- Avatar lightbox -->
+  <div id="avatarModal" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="avatarCaption">
+    <div class="absolute inset-0 bg-slate-900/70" data-close></div>
+    <div class="absolute inset-0 flex items-center justify-center p-4">
+      <figure id="avatarPanel" class="opacity-0 scale-95 transition transform duration-200">
+        <img
+          src="assets/img/me-640.webp"
+          srcset="assets/img/me-640.webp 1x, assets/img/me-640.webp 2x"
+          alt="Somdip Sen"
+          class="max-h-[80vh] max-w-[min(90vw,700px)] rounded-2xl object-cover shadow-soft"
+        />
+        <figcaption id="avatarCaption" class="mt-3 text-center text-sm text-slate-200">Somdip Sen</figcaption>
+      </figure>
+    </div>
+    <button class="absolute top-4 right-4 rounded-full bg-black/60 text-white p-2 hover:bg-black/70"
+            aria-label="Close" data-close>&times;</button>
+  </div>
+
+
   <!-- Subtle intersection animations -->
   <script>
     // Theme toggle
@@ -259,6 +349,9 @@
     const sun = document.getElementById('sun');
     const moon = document.getElementById('moon');
     const root = document.documentElement;
+    const avatarToggle = document.getElementById('avatarToggle');
+    const avatarModal  = document.getElementById('avatarModal');
+    const avatarPanel  = document.getElementById('avatarPanel');
 
     function setTheme(dark) {
       if (dark) {
@@ -273,8 +366,36 @@
         localStorage.setItem('theme', 'light');
       }
     }
+    function openAvatar() {
+      avatarModal.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+      requestAnimationFrame(() => {
+        avatarPanel.classList.remove('opacity-0','scale-95');
+        avatarPanel.classList.add('opacity-100','scale-100');
+      });
+      avatarToggle?.setAttribute('aria-expanded','true');
+    }
+    function closeAvatar() {
+      avatarPanel.classList.add('opacity-0','scale-95');
+      avatarPanel.classList.remove('opacity-100','scale-100');
+      setTimeout(() => {
+        avatarModal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+      }, 200);
+      avatarToggle?.setAttribute('aria-expanded','false');
+    }
     setTheme(window.matchMedia('(prefers-color-scheme: dark)').matches || localStorage.getItem('theme') === 'dark');
     themeToggle.addEventListener('click', () => setTheme(!document.documentElement.classList.contains('dark')));
+
+    avatarToggle?.addEventListener('click', openAvatar);
+    avatarModal?.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeAvatar));
+    // Close when clicking anywhere outside the photo (not just the backdrop)
+    avatarModal?.addEventListener('click', (e) => {
+      if (!avatarPanel.contains(e.target)) closeAvatar();
+    });
+
+    window.addEventListener('keydown', e => { if (e.key === 'Escape' && !avatarModal.classList.contains('hidden')) closeAvatar(); });
+
 
     // Reveal on scroll
     const reveal = new IntersectionObserver((entries) => {
@@ -287,3 +408,5 @@
   </script>
 </body>
 </html>
+
+
