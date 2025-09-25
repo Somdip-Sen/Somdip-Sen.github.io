@@ -1,0 +1,262 @@
+<!doctype html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Appendix — All Projects</title>
+  <meta name="description" content="All the projects with their GitHub repositories." />
+  <!-- Tailwind CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          fontFamily: { ui: ['Inter','ui-sans-serif','system-ui','-apple-system','Segoe UI','Roboto','Helvetica','Arial'] }
+        }
+      }
+    }
+  </script>
+  <style>
+    .beauty-scroll::-webkit-scrollbar{height:10px}
+    .beauty-scroll::-webkit-scrollbar-thumb{background:linear-gradient(90deg,#64748b55,#22d3ee55);border-radius:9999px}
+    .beauty-scroll{scrollbar-width:thin}
+    .bg-grid {
+      background-image:
+        linear-gradient(to right, rgba(148,163,184,.08) 1px, transparent 1px),
+        linear-gradient(to bottom, rgba(148,163,184,.08) 1px, transparent 1px);
+      background-size: 22px 22px;
+    }
+    /* Back button ripple */
+    .btn-ripple{position:relative;overflow:hidden;isolation:isolate}
+    .btn-ripple:after{
+      content:""; position:absolute; inset:0;
+      background:radial-gradient(closest-side,rgba(255,255,255,.14),transparent);
+      transform:translateX(-120%) scale(.9); filter:blur(8px); transition:transform .5s ease;
+    }
+    .btn-ripple:hover:after{transform:translateX(0) scale(1)}
+  </style>
+  <!-- Prevent flash: set theme before paint -->
+  <script>
+    (function(){
+      try{
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const useDark = stored ? stored === 'dark' : prefersDark;
+        document.documentElement.classList.toggle('dark', useDark);
+      }catch(e){}
+    })();
+  </script>
+</head>
+<body class="min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-ui selection:bg-indigo-500/30 selection:text-white/95">
+  <!-- Ambient glow + subtle grid so it never feels empty -->
+  <div class="pointer-events-none fixed inset-0 -z-10">
+    <div class="absolute -top-24 -left-24 h-[28rem] w-[36rem] rounded-full blur-[120px] opacity-25 dark:opacity-30 bg-gradient-to-br from-indigo-600/30 via-fuchsia-500/25 to-cyan-400/30"></div>
+    <div class="absolute -bottom-24 -right-24 h-[26rem] w-[30rem] rounded-full blur-[120px] opacity-15 dark:opacity-20 bg-gradient-to-tr from-cyan-400/25 to-indigo-600/25"></div>
+    <div class="absolute inset-0 opacity-[.14] dark:opacity-[.18] bg-grid"></div>
+  </div>
+
+  <header class="max-w-7xl mx-auto px-6 pt-10">
+    <div class="mb-4">
+      <a href="https://somdip-sen.github.io/#home" class="btn-ripple inline-flex items-center gap-2 rounded-xl px-3 py-2 ring-1 ring-black/10 dark:ring-white/10
+                             bg-white/70 dark:bg-slate-900/70 backdrop-blur-md hover:bg-white/90 dark:hover:bg-slate-900/90 transition">
+        <svg viewBox="0 0 24 24" class="h-5 w-5 -ml-0.5" fill="currentColor" aria-hidden="true">
+          <path d="M10.828 12 16.07 6.757 14.656 5.343 8 12l6.657 6.657 1.414-1.414z"/>
+        </svg>
+        <span class="text-sm font-medium">Back to Portfolio</span>
+      </a>
+    </div>
+
+    <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight">
+      <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-fuchsia-400 to-cyan-300">
+        Appendix: All Projects
+      </span>
+    </h1>
+    <p class="mt-2 text-slate-600 dark:text-slate-300/90">Browse all projects or filter by tags.</p>
+
+    <!-- Controls -->
+    <div class="mt-6 flex flex-col md:flex-row gap-3 md:items-center">
+      <div class="relative w-full md:max-w-md">
+        <input id="q" type="search" placeholder="Search projects (title, tags)…"
+               class="w-full rounded-lg bg-white/70 dark:bg-slate-900/70 ring-1 ring-black/10 dark:ring-white/10 px-3 py-2 outline-none
+                      placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-500/70">
+        <svg viewBox="0 0 24 24" class="pointer-events-none absolute right-3 top-2.5 h-5 w-5 text-slate-400"><path fill="currentColor" d="m20.6 19.2-4.3-4.3a7.1 7.1 0 1 0-1.4 1.4l4.3 4.3 1.4-1.4zM10.5 16a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z"/></svg>
+      </div>
+
+      <div class="flex flex-wrap gap-2">
+        <!-- Tag chips -->
+        <button data-tag="all" class="tag px-3 py-1 text-xs rounded-full bg-slate-200/70 dark:bg-slate-800/80 ring-1 ring-black/10 dark:ring-white/10 hover:bg-slate-300/60 dark:hover:bg-slate-700/70">All</button>
+        <button data-tag="ml" class="tag px-3 py-1 text-xs rounded-full bg-slate-200/70 dark:bg-slate-800/80 ring-1 ring-black/10 dark:ring-white/10 hover:bg-slate-300/60 dark:hover:bg-slate-700/70">ML</button>
+        <button data-tag="cv" class="tag px-3 py-1 text-xs rounded-full bg-slate-200/70 dark:bg-slate-800/80 ring-1 ring-black/10 dark:ring-white/10 hover:bg-slate-300/60 dark:hover:bg-slate-700/70">CV</button>
+        <button data-tag="iot" class="tag px-3 py-1 text-xs rounded-full bg-slate-200/70 dark:bg-slate-800/80 ring-1 ring-black/10 dark:ring-white/10 hover:bg-slate-300/60 dark:hover:bg-slate-700/70">IoT</button>
+        <button data-tag="systems" class="tag px-3 py-1 text-xs rounded-full bg-slate-200/70 dark:bg-slate-800/80 ring-1 ring-black/10 dark:ring-white/10 hover:bg-slate-300/60 dark:hover:bg-slate-700/70">Systems</button>
+        <button data-tag="web" class="tag px-3 py-1 text-xs rounded-full bg-slate-200/70 dark:bg-slate-800/80 ring-1 ring-black/10 dark:ring-white/10 hover:bg-slate-300/60 dark:hover:bg-slate-700/70">Web</button>
+        <button data-tag="compiler" class="tag px-3 py-1 text-xs rounded-full bg-slate-200/70 dark:bg-slate-800/80 ring-1 ring-black/10 dark:ring-white/10 hover:bg-slate-300/60 dark:hover:bg-slate-700/70">Compiler</button>
+      </div>
+
+      <!-- Light/Dark slider -->
+      <div class="md:ml-auto flex items-center gap-2">
+        <span class="hidden sm:block text-xs text-slate-500 dark:text-slate-400">Light</span>
+        <button id="themeToggle" aria-pressed="false"
+          class="relative h-7 w-14 rounded-full ring-1 ring-black/10 dark:ring-white/10
+                 bg-slate-200 dark:bg-slate-800 transition focus:outline-none focus:ring-2 focus:ring-indigo-500/60">
+          <span id="thumb"
+            class="absolute top-0.5 left-0.5 h-6 w-6 rounded-full bg-white dark:bg-slate-200 shadow
+                   transition-transform will-change-transform"></span>
+          <svg id="sun" viewBox="0 0 24 24" class="absolute left-1.5 top-1.5 h-4 w-4 text-amber-500"></svg>
+          <svg id="moon" viewBox="0 0 24 24" class="absolute right-1.5 top-1.5 h-4 w-4 text-cyan-300 opacity-0"></svg>
+        </button>
+        <span class="hidden sm:block text-xs text-slate-500 dark:text-slate-400">Dark</span>
+      </div>
+    </div>
+
+    <p id="count" class="mt-2 text-xs text-slate-500 dark:text-slate-400"></p>
+  </header>
+
+  <main class="max-w-7xl mx-auto px-6 mt-6">
+    <!-- On small screens it's a horizontal rail; md+ switches to dense grid -->
+    <section id="gridWrap" class="group/grid">
+      <div id="projects"
+           class="beauty-scroll md:!overflow-visible flex md:grid gap-6 overflow-x-auto snap-x snap-mandatory pb-4
+                  [grid-template-columns:repeat(1,minmax(0,1fr))]
+                  sm:[grid-template-columns:repeat(2,minmax(0,1fr))]
+                  lg:[grid-template-columns:repeat(3,minmax(0,1fr))]
+                  xl:[grid-template-columns:repeat(4,minmax(0,1fr))]">
+        <!-- Cards injected by JS -->
+      </div>
+    </section>
+  </main>
+
+  <footer class="max-w-7xl mx-auto px-6 py-10 text-slate-600 dark:text-slate-400/80">
+    Built with Tailwind by Somdip • Deployed on GitHub Pages
+  </footer>
+
+  <script>
+    // ---------- Data ----------
+    const PROJECTS = [
+      { title: "Intelligent CV shortlister ", repo: "Somdip-Sen/intelligent_cv_sorter", desc: "LLM Agent · RAG, FAISS", tags:["LLM","RAG","Vector DB","Python", "ML"] },
+      { title: "Lightweight Face Tracker", repo: "Somdip-Sen/Lightweight_Face_Tracker--MTP", desc: "Detector less Tracker · Autoregression", tags:["CV","MTP","Python", "ML"] },
+      { title: "Private Chatroom", repo: "Somdip-Sen/private-chatroom", desc: "Socket Programming · LAN · Fun Project", tags:["Socket Programming","systems","Python"] },
+      { title: "MRI Tumour Detection", repo: "Somdip-Sen/MRI_tumor_detection", desc: "A100 · Recall-driven", tags:["CV","Python", "ML"] },
+      { title: "OS Scheduler Simulator", repo: "YOUR_GITHUB_USERNAME/os-scheduler-sim", desc: "Round-Robin · FCFS · Gantt", tags:["systems"] },
+      { title: "Portfolio Website", repo: "YOUR_GITHUB_USERNAME/btech-portfolio", desc: "Static site · GitHub Pages", tags:["web"] },
+      { title: "Handwritten Digit Classifier", repo: "YOUR_GITHUB_USERNAME/mnist-cnn", desc: "CNN · Keras · Augmentations", tags:["ml","cv"] },
+      { title: "Network Packet Sniffer", repo: "YOUR_GITHUB_USERNAME/packet-sniffer", desc: "PCAP · Python", tags:["systems"] },
+      { title: "URL Phishing Detector", repo: "YOUR_GITHUB_USERNAME/url-phishing-ml", desc: "Feature engineering · XGBoost", tags:["ml","web"] },
+      { title: "Autograder CLI", repo: "YOUR_GITHUB_USERNAME/autograder-cli", desc: "CLI · Node.js", tags:["systems","web"] },
+      { title: "Edge Object Tracking", repo: "YOUR_GITHUB_USERNAME/edge-tracker", desc: "KCF/CSRT · OpenCV", tags:["cv","iot"] },
+      { title: "Distributed KV Store", repo: "YOUR_GITHUB_USERNAME/kv-store", desc: "Raft-ish · Go", tags:["systems"] },
+    ];
+
+    // ---------- Helpers ----------
+    const el = (t, cls, attrs={}) => {
+      const n = document.createElement(t);
+      if (cls) n.className = cls;
+      for (const [k,v] of Object.entries(attrs)) {
+        if (k === "text") n.textContent = v;
+        else if (k === "html") n.innerHTML = v;
+        else n.setAttribute(k, v);
+      }
+      return n;
+    };
+
+    let state = { q:"", tag:"all" };
+
+    function og(repo){ return `https://opengraph.githubassets.com/1/${repo}`; }
+
+    function match(p){
+      const q = state.q.trim().toLowerCase();
+      const inTag = state.tag === "all" || (p.tags || []).includes(state.tag);
+      const inText = !q || (p.title + " " + (p.desc||"") + " " + (p.tags||[]).join(" ")).toLowerCase().includes(q);
+      return inTag && inText;
+    }
+
+    function card(p){
+      const a = el("a",
+        "group relative snap-start shrink-0 md:shrink md:snap-none rounded-2xl p-[1px] " +
+        "bg-gradient-to-br from-indigo-500/40 via-fuchsia-500/30 to-cyan-500/40 " +
+        "hover:from-indigo-400/70 hover:to-cyan-400/70 transition-all duration-300",
+        { href:`https://github.com/${p.repo}`, target:"_blank", rel:"noopener", "aria-label":`Open repo: ${p.title}` }
+      );
+      const wrap = el("div","relative rounded-[calc(1rem-1px)] bg-white/80 dark:bg-slate-900/80 ring-1 ring-black/10 dark:ring-white/10 overflow-hidden backdrop-blur-md");
+      const media = el("div","relative aspect-[16/10]");
+      const img = el("img","absolute inset-0 h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.06]",{
+        loading:"lazy", alt:`Preview of ${p.title} repository`, src:og(p.repo)
+      });
+
+      
+      const meta = el("div","absolute inset-x-4 bottom-3 z-20 text-white");
+      const h3 = el("h3","text-base md:text-lg font-semibold drop-shadow-[0_2px_10px_rgba(0,0,0,0.60)]", {text:p.title});
+      const d  = el("p","text-sm text-white/95 drop-shadow-[0_2px_10px_rgba(0,0,0,0.60)]", {text:p.desc || ""});
+      // Full-image tint so text always has contrast on bright OG images
+      const tint = el(
+        "div",
+        // much darker across the whole image
+        "absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-black/75 to-black/55 transition-opacity duration-300"
+      );
+
+      const tagWrap = el("div","mt-2 flex flex-wrap gap-2");
+      (p.tags||[]).slice(0,3).forEach(t=>{
+        tagWrap.appendChild(el("span","text-xs px-2 py-0.5 rounded-full bg-white/15 ring-1 ring-white/20 text-white/90", {text:t}));
+      });
+
+      meta.append(h3,d,tagWrap);
+      media.append(img, tint);
+      
+      wrap.append(media, meta);
+      a.append(wrap);
+      return a;
+    }
+
+    function render(){
+      const root = document.getElementById("projects");
+      root.innerHTML = "";
+      const items = PROJECTS.filter(match);
+      items.forEach(p => root.appendChild(card(p)));
+      document.getElementById("count").textContent = `${items.length} project${items.length!==1?"s":""} shown`;
+    }
+
+    // ---------- Interactions ----------
+    const q = document.getElementById("q");
+    q.addEventListener("input", () => { state.q = q.value; render(); });
+
+    document.querySelectorAll(".tag").forEach(btn=>{
+      btn.addEventListener("click", ()=>{
+        document.querySelectorAll(".tag").forEach(b=>b.classList.remove("ring-indigo-400","bg-indigo-500/10"));
+        btn.classList.add("ring-indigo-400","bg-indigo-500/10");
+        state.tag = btn.dataset.tag;
+        render();
+      });
+    });
+    document.querySelector('[data-tag="all"]').classList.add("ring-indigo-400","bg-indigo-500/10");
+
+    // Theme toggle
+    document.getElementById('sun').innerHTML =
+      '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.4 1.4M17.6 17.6 19 19M19 5l-1.4 1.4M5 19l1.4-1.4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>';
+    document.getElementById('moon').innerHTML =
+      '<path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z" fill="currentColor"/>';
+
+    const btn = document.getElementById('themeToggle');
+    const thumb = document.getElementById('thumb');
+
+    function setTheme(mode){
+      const dark = mode==='dark';
+      document.documentElement.classList.toggle('dark', dark);
+      localStorage.setItem('theme', mode);
+      thumb.style.transform = dark ? 'translateX(28px)' : 'translateX(0px)';
+      document.getElementById('sun').style.opacity = dark ? '0' : '1';
+      document.getElementById('moon').style.opacity = dark ? '1' : '0';
+      btn.setAttribute('aria-pressed', String(dark));
+    }
+    // initialize from current class
+    setTheme(document.documentElement.classList.contains('dark') ? 'dark' : 'light');
+    btn.addEventListener('click', ()=>{
+      const next = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
+      setTheme(next);
+    });
+
+    // Initial render
+    render();
+  </script>
+</body>
+</html>
