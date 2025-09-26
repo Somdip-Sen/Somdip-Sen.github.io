@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>Appendix — All Projects</title>
+  <title>Appendix — Major Projects</title>
   <meta name="description" content="All the projects with their GitHub repositories." />
   <!-- Tailwind CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -88,10 +88,10 @@
         <button data-tag="all" class="tag px-3 py-1 text-xs rounded-full bg-slate-200/70 dark:bg-slate-800/80 ring-1 ring-black/10 dark:ring-white/10 hover:bg-slate-300/60 dark:hover:bg-slate-700/70">All</button>
         <button data-tag="ml" class="tag px-3 py-1 text-xs rounded-full bg-slate-200/70 dark:bg-slate-800/80 ring-1 ring-black/10 dark:ring-white/10 hover:bg-slate-300/60 dark:hover:bg-slate-700/70">ML</button>
         <button data-tag="cv" class="tag px-3 py-1 text-xs rounded-full bg-slate-200/70 dark:bg-slate-800/80 ring-1 ring-black/10 dark:ring-white/10 hover:bg-slate-300/60 dark:hover:bg-slate-700/70">CV</button>
-        <button data-tag="iot" class="tag px-3 py-1 text-xs rounded-full bg-slate-200/70 dark:bg-slate-800/80 ring-1 ring-black/10 dark:ring-white/10 hover:bg-slate-300/60 dark:hover:bg-slate-700/70">IoT</button>
-        <button data-tag="systems" class="tag px-3 py-1 text-xs rounded-full bg-slate-200/70 dark:bg-slate-800/80 ring-1 ring-black/10 dark:ring-white/10 hover:bg-slate-300/60 dark:hover:bg-slate-700/70">Systems</button>
-        <button data-tag="web" class="tag px-3 py-1 text-xs rounded-full bg-slate-200/70 dark:bg-slate-800/80 ring-1 ring-black/10 dark:ring-white/10 hover:bg-slate-300/60 dark:hover:bg-slate-700/70">Web</button>
-        <button data-tag="compiler" class="tag px-3 py-1 text-xs rounded-full bg-slate-200/70 dark:bg-slate-800/80 ring-1 ring-black/10 dark:ring-white/10 hover:bg-slate-300/60 dark:hover:bg-slate-700/70">Compiler</button>
+        <button data-tag="rag" class="tag px-3 py-1 text-xs rounded-full bg-slate-200/70 dark:bg-slate-800/80 ring-1 ring-black/10 dark:ring-white/10 hover:bg-slate-300/60 dark:hover:bg-slate-700/70">RAG</button>
+        <button data-tag="llm" class="tag px-3 py-1 text-xs rounded-full bg-slate-200/70 dark:bg-slate-800/80 ring-1 ring-black/10 dark:ring-white/10 hover:bg-slate-300/60 dark:hover:bg-slate-700/70">LLM</button>
+        <button data-tag="android" class="tag px-3 py-1 text-xs rounded-full bg-slate-200/70 dark:bg-slate-800/80 ring-1 ring-black/10 dark:ring-white/10 hover:bg-slate-300/60 dark:hover:bg-slate-700/70">Android</button>
+        <button data-tag="pytorch" class="tag px-3 py-1 text-xs rounded-full bg-slate-200/70 dark:bg-slate-800/80 ring-1 ring-black/10 dark:ring-white/10 hover:bg-slate-300/60 dark:hover:bg-slate-700/70">Pytorch</button>
       </div>
 
       <!-- Light/Dark slider -->
@@ -134,18 +134,17 @@
   <script>
     // ---------- Data ----------
     const PROJECTS = [
-      { title: "Intelligent CV shortlister ", repo: "Somdip-Sen/intelligent_cv_sorter", desc: "LLM Agent · RAG, FAISS", tags:["LLM","RAG","Vector DB","Python", "ML"] },
-      { title: "Lightweight Face Tracker", repo: "Somdip-Sen/Lightweight_Face_Tracker--MTP", desc: "Detector less Tracker · Autoregression", tags:["CV","MTP","Python", "ML"] },
-      { title: "Private Chatroom", repo: "Somdip-Sen/private-chatroom", desc: "Socket Programming · LAN · Fun Project", tags:["Socket Programming","systems","Python"] },
+      { title: "CV Retrival Copilot", repo: "Somdip-Sen/intelligent_cv_sorter", desc: "LLM Agent · RAG", tags:["llm","rag","vector db","python", "ML"] },
+      { title: "Lightweight Face Tracker", repo: "Somdip-Sen/Lightweight_Face_Tracker--MTP", desc: "Detector less Tracker · Autoregression", tags:["CV","MTP","python", "ML"] },
       { title: "MRI Tumour Detection", repo: "Somdip-Sen/MRI_tumor_detection", desc: "A100 · Recall-driven", tags:["CV","Python", "ML"] },
-      { title: "OS Scheduler Simulator", repo: "YOUR_GITHUB_USERNAME/os-scheduler-sim", desc: "Round-Robin · FCFS · Gantt", tags:["systems"] },
-      { title: "Portfolio Website", repo: "YOUR_GITHUB_USERNAME/btech-portfolio", desc: "Static site · GitHub Pages", tags:["web"] },
-      { title: "Handwritten Digit Classifier", repo: "YOUR_GITHUB_USERNAME/mnist-cnn", desc: "CNN · Keras · Augmentations", tags:["ml","cv"] },
-      { title: "Network Packet Sniffer", repo: "YOUR_GITHUB_USERNAME/packet-sniffer", desc: "PCAP · Python", tags:["systems"] },
-      { title: "URL Phishing Detector", repo: "YOUR_GITHUB_USERNAME/url-phishing-ml", desc: "Feature engineering · XGBoost", tags:["ml","web"] },
-      { title: "Autograder CLI", repo: "YOUR_GITHUB_USERNAME/autograder-cli", desc: "CLI · Node.js", tags:["systems","web"] },
-      { title: "Edge Object Tracking", repo: "YOUR_GITHUB_USERNAME/edge-tracker", desc: "KCF/CSRT · OpenCV", tags:["cv","iot"] },
-      { title: "Distributed KV Store", repo: "YOUR_GITHUB_USERNAME/kv-store", desc: "Raft-ish · Go", tags:["systems"] },
+      { title: "Multiplayer Tic-Tac-Toe (Android)", repo: "Somdip-Sen/multiplayerTicTacToeGame", desc: "Bluetooth · Wifi-direct · Multiplayer · Fun Project", tags:["Android","Tictactoe Game","Java"] },
+      { title: "Private Chatroom", repo: "Somdip-Sen/private-chatroom", desc: "Socket Programming · LAN · Fun Project", tags:["Socket Programming","systems","Python"] },
+      { title: "Blogging website prototype", repo: "Somdip-Sen/Prototype_blogging_website_flask", desc: "Flask · Web-development · Fun Project", tags:["flask", "python"] },
+      { title: "Portfolio Website", repo: "Somdip-Sen/Somdip-Sen.github.io", desc: "Static site · GitHub Pages", tags:["web"] },
+      { title: "GUI Game (Space Intruder)", repo: "Somdip-Sen/Space_intruder", desc: "Pygames · GUI · Fun Project", tags:["pygames","python", "gui"] },
+      { title: "Employee Management webapp", repo: "Somdip-Sen/Employee_management_webapp", desc: "webapp · Python", tags:["python", "webapp", "gui"] },
+      { title: "Tourist Management Windows App", repo: "Somdip-Sen/Tourist_Management_System", desc: "windows app · VB.net", tags:["webapp","vb.net", "gui"] },
+
     ];
 
     // ---------- Helpers ----------
