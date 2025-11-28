@@ -364,6 +364,20 @@
       transform: translate3d(0, 0, 0) scale(1);
     }
 
+    /* Cards get a lighter, shorter fly-in so 10 of them don't pile up on the GPU */
+    .card.fade-up {
+      transform: translate3d(0, 32px, 0);
+      transition:
+        opacity .55s cubic-bezier(0.22, 1, 0.36, 1),
+        transform .55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .card.fade-up[data-dir="up"] {
+      transform: translate3d(0, -32px, 0);
+    }
+    .card.fade-up.in {
+      transform: translate3d(0, 0, 0);
+    }
+
     /* Selection */
     ::selection { background: color-mix(in oklab, var(--accent) 35%, transparent); color: var(--fg); }
 
@@ -499,7 +513,7 @@
       const a = el("a", "card snap-start shrink-0 md:shrink md:snap-none fade-up", {
         href: `https://github.com/${p.repo}`, target: "_blank", rel: "noopener",
         "aria-label": `Open repo: ${p.title}`,
-        style: `transition-delay:${Math.min(i * 75, 525)}ms`
+        style: `transition-delay:${Math.min(i * 45, 270)}ms`
       });
 
       const media = el("div", "card-media");
