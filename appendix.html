@@ -210,6 +210,10 @@
       border: 1px solid var(--line);
       display: flex; flex-direction: column;
       transition: transform .45s cubic-bezier(.2,.7,.2,1), border-color .35s ease, box-shadow .5s ease;
+      width: min(82vw, 340px);                       /* mobile horizontal-scroll size */
+    }
+    @media (min-width: 768px) {
+      .card { width: auto; }                          /* grid takes over from md: up */
     }
     .card::before {
       content: ""; position: absolute; inset: 0; padding: 1px; border-radius: inherit;
@@ -338,6 +342,8 @@
       border-radius: 9999px;
     }
     .beauty-scroll { scrollbar-width: thin; }
+    .dark .beauty-scroll::-webkit-scrollbar-thumb { background: #d1d5db; }
+    .dark .beauty-scroll { scrollbar-color: #d1d5db transparent; }
 
     /* Empty state */
     .empty {

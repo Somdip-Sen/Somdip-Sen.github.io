@@ -320,7 +320,7 @@
     .timeline.drawn::before { transform: scaleY(1); }
     .node {
       position: absolute;
-      left: -60px;          /* center on the spine: -((pl-16 = 64px) - line center 11.5px + node half 8px) */
+      left: -36px;          /* mobile spine offset for pl-10 */
       top: 2px;
       width: 16px; height: 16px;
       border-radius: 9999px;
@@ -361,6 +361,43 @@
           0 0 36px color-mix(in oklab, var(--accent) 60%, transparent);
       }
     }
+    @media (min-width: 640px) {
+      .node { left: -60px; }   /* spine offset shifts when pl-10 → pl-16 */
+    }
+
+    /* ----- Mobile menu ----- */
+    .mm-link {
+      display: flex; align-items: baseline; justify-content: space-between;
+      padding: 1rem 0;
+      font-family: "Instrument Serif", Georgia, serif;
+      font-size: 1.85rem; line-height: 1; letter-spacing: -.01em;
+      border-bottom: 1px solid var(--line);
+      transition: color .3s ease, padding-left .35s cubic-bezier(.2,.7,.2,1);
+    }
+    .mm-link:hover, .mm-link:focus-visible { color: var(--accent); padding-left: 6px; outline: none; }
+    .mm-num {
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: .68rem; letter-spacing: .18em; color: var(--muted);
+    }
+    #mobileMenu .mm-backdrop {
+      position: absolute; inset: 0;
+      background: color-mix(in oklab, var(--bg) 30%, rgba(0,0,0,.5));
+      backdrop-filter: blur(6px);
+      opacity: 0; transition: opacity .35s ease;
+    }
+    #mobileMenu.open .mm-backdrop { opacity: 1; }
+    #mobileMenuPanel {
+      position: absolute; top: 0; right: 0; bottom: 0;
+      width: 84%; max-width: 360px;
+      background: color-mix(in oklab, var(--bg) 92%, transparent);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-left: 1px solid var(--line);
+      transform: translateX(100%);
+      transition: transform .45s cubic-bezier(.2,.7,.2,1);
+      display: flex; flex-direction: column;
+    }
+    #mobileMenu.open #mobileMenuPanel { transform: translateX(0); }
 
     /* Scroll progress */
     .scroll-progress {
@@ -466,12 +503,44 @@
           <svg id="moon" class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M21 12.79A9 9 0 1 1 11.21 3a7 7 0 0 0 9.79 9.79z"/></svg>
         </button>
         <a href="#contact" class="hidden sm:inline-flex btn btn-primary">Contact</a>
+        <button id="menuToggle" type="button" aria-label="Open menu" aria-controls="mobileMenu" aria-expanded="false"
+                class="sm:hidden w-9 h-9 grid place-items-center rounded-full border border-[var(--line)] hover:border-[color-mix(in_oklab,var(--fg)_24%,transparent)] transition">
+          <svg id="menuOpenIcon" class="w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M4 7h16M4 12h16M4 17h16"/></svg>
+          <svg id="menuCloseIcon" class="w-5 h-5 hidden" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg>
+        </button>
       </div>
     </div>
   </header>
 
+  <!-- Mobile menu drawer (sm: hidden by Tailwind) -->
+  <div id="mobileMenu" class="sm:hidden fixed inset-0 z-[45] hidden" role="dialog" aria-modal="true" aria-label="Mobile navigation">
+    <div class="mm-backdrop" data-close></div>
+    <aside id="mobileMenuPanel">
+      <div class="h-16 flex items-center justify-between px-5 border-b border-[var(--line)]">
+        <span class="kicker">Menu</span>
+        <button data-close aria-label="Close menu" class="w-9 h-9 grid place-items-center rounded-full hover:bg-[color-mix(in_oklab,var(--fg)_8%,transparent)] transition">
+          <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg>
+        </button>
+      </div>
+      <nav class="flex-1 flex flex-col gap-1 p-6 overflow-y-auto">
+        <a href="#experience" class="mm-link" data-close>Experience<span class="mm-num">01</span></a>
+        <a href="#education"  class="mm-link" data-close>Education<span class="mm-num">02</span></a>
+        <a href="#projects"   class="mm-link" data-close>Projects<span class="mm-num">03</span></a>
+        <a href="#skills"     class="mm-link" data-close>Skills<span class="mm-num">04</span></a>
+        <a href="appendix.html" class="mm-link">Appendix<span class="mm-num">↗</span></a>
+      </nav>
+      <div class="p-6 border-t border-[var(--line)] flex flex-col gap-3">
+        <a href="#contact" data-close class="btn btn-primary w-full justify-center">Contact</a>
+        <div class="flex items-center justify-between text-xs text-[color:var(--muted)] font-mono">
+          <span>somdip.it@gmail.com</span>
+          <span>Kolkata · IN</span>
+        </div>
+      </div>
+    </aside>
+  </div>
+
   <!-- Hero -->
-  <section id="home" class="pt-40 pb-24 relative">
+  <section id="home" class="pt-28 pb-16 sm:pt-40 sm:pb-24 relative">
     <div class="max-w-6xl mx-auto px-5 sm:px-7">
       <div class="flex items-center gap-3 mb-8 fade-up">
         <span class="pulse-dot"></span>
@@ -546,14 +615,14 @@
   </section>
 
   <!-- Experience -->
-  <section id="experience" class="py-24 relative">
+  <section id="experience" class="py-16 sm:py-24 relative">
     <div class="max-w-6xl mx-auto px-5 sm:px-7">
       <div class="mb-12 fade-up">
         <div class="kicker mb-3">01 — Path so far</div>
         <h2 class="display text-4xl sm:text-5xl">Experience.</h2>
       </div>
 
-      <div class="timeline pl-16" id="timeline">
+      <div class="timeline pl-10 sm:pl-16" id="timeline">
         <div class="relative mb-12 fade-up">
           <span class="node"></span>
           <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
@@ -586,7 +655,7 @@
   </section>
 
   <!-- Education -->
-  <section id="education" class="py-24 relative">
+  <section id="education" class="py-16 sm:py-24 relative">
     <div class="max-w-6xl mx-auto px-5 sm:px-7">
       <div class="mb-12 fade-up">
         <div class="kicker mb-3">02 — Foundations</div>
@@ -618,7 +687,7 @@
   </section>
 
   <!-- Projects -->
-  <section id="projects" class="py-24 relative">
+  <section id="projects" class="py-16 sm:py-24 relative">
     <div class="max-w-6xl mx-auto px-5 sm:px-7">
       <div class="flex items-end justify-between flex-wrap gap-4 mb-12 fade-up">
         <div>
@@ -750,7 +819,7 @@
   </section>
 
   <!-- Skills -->
-  <section id="skills" class="py-24 relative">
+  <section id="skills" class="py-16 sm:py-24 relative">
     <div class="max-w-6xl mx-auto px-5 sm:px-7">
       <div class="mb-12 fade-up">
         <div class="kicker mb-3">04 — Toolbelt</div>
@@ -795,7 +864,7 @@
   </section>
 
   <!-- Contact -->
-  <section id="contact" class="py-28 relative">
+  <section id="contact" class="py-20 sm:py-28 relative">
     <div class="max-w-6xl mx-auto px-5 sm:px-7 text-center">
       <div class="kicker mb-4 justify-center fade-up" style="display:inline-flex;">05 — Get in touch</div>
       <h2 class="display text-5xl sm:text-7xl fade-up">Let's work <em>together</em>.</h2>
@@ -910,6 +979,34 @@
     avatarModal?.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeAvatar));
     avatarModal?.addEventListener('click', (e) => { if (!avatarPanel.contains(e.target)) closeAvatar(); });
     window.addEventListener('keydown', e => { if (e.key === 'Escape' && !avatarModal.classList.contains('hidden')) closeAvatar(); });
+
+    /* ---------- Mobile menu ---------- */
+    const menuToggle    = document.getElementById('menuToggle');
+    const menuOpenIcon  = document.getElementById('menuOpenIcon');
+    const menuCloseIcon = document.getElementById('menuCloseIcon');
+    const mobileMenu    = document.getElementById('mobileMenu');
+
+    function openMenu() {
+      mobileMenu.classList.remove('hidden');
+      requestAnimationFrame(() => mobileMenu.classList.add('open'));
+      document.body.classList.add('overflow-hidden');
+      menuToggle?.setAttribute('aria-expanded', 'true');
+      menuOpenIcon?.classList.add('hidden');
+      menuCloseIcon?.classList.remove('hidden');
+    }
+    function closeMenu() {
+      mobileMenu.classList.remove('open');
+      document.body.classList.remove('overflow-hidden');
+      menuToggle?.setAttribute('aria-expanded', 'false');
+      menuOpenIcon?.classList.remove('hidden');
+      menuCloseIcon?.classList.add('hidden');
+      setTimeout(() => mobileMenu.classList.add('hidden'), 450);
+    }
+    menuToggle?.addEventListener('click', openMenu);
+    mobileMenu?.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeMenu));
+    window.addEventListener('keydown', e => { if (e.key === 'Escape' && mobileMenu && !mobileMenu.classList.contains('hidden')) closeMenu(); });
+    // If viewport grows past sm: while menu is open, clean state
+    matchMedia('(min-width: 640px)').addEventListener?.('change', (e) => { if (e.matches && mobileMenu && !mobileMenu.classList.contains('hidden')) closeMenu(); });
 
     /* ---------- Smooth in-page navigation ---------- */
     function smoothScrollTo(targetY, duration = 700) {
