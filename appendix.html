@@ -1,121 +1,440 @@
 <!doctype html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Appendix — Major Projects</title>
   <meta name="description" content="All the projects with their GitHub repositories." />
-  <!-- Tailwind CDN -->
+
+  <script>
+    (function () {
+      try {
+        const stored = localStorage.getItem('theme');
+        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+        const dark = stored ? stored === 'dark' : prefersDark;
+        document.documentElement.classList.toggle('dark', dark);
+      } catch (e) {}
+    })();
+  </script>
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
       darkMode: 'class',
       theme: {
         extend: {
-          fontFamily: { ui: ['Inter','ui-sans-serif','system-ui','-apple-system','Segoe UI','Roboto','Helvetica','Arial'] }
+          fontFamily: {
+            sans: ["Inter", "ui-sans-serif", "system-ui", "-apple-system", "Segoe UI", "Roboto", "Helvetica", "Arial", "sans-serif"],
+            display: ["'Instrument Serif'", "Georgia", "serif"],
+            mono: ["'JetBrains Mono'", "ui-monospace", "SFMono-Regular", "Menlo", "monospace"]
+          }
         }
       }
     }
   </script>
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Instrument+Serif:ital@0;1&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+
   <style>
-    .beauty-scroll::-webkit-scrollbar{height:10px}
-    .beauty-scroll::-webkit-scrollbar-thumb{background:linear-gradient(90deg,#64748b55,#22d3ee55);border-radius:9999px}
-    .beauty-scroll{scrollbar-width:thin}
-    .bg-grid {
+    :root {
+      --bg: #f7f7f8;
+      --fg: #0c0d12;
+      --muted: #5b5c66;
+      --line: rgba(12,13,18,.08);
+      --card: rgba(255,255,255,.65);
+      --card-strong: rgba(255,255,255,.85);
+      --accent: #6d28d9;
+      --glow-a: rgba(167,139,250,.45);
+      --glow-b: rgba(34,211,238,.35);
+      --glow-c: rgba(232,121,249,.35);
+      --card-tint: linear-gradient(to top,
+        rgba(76, 29, 149, .92) 0%,
+        rgba(124, 58, 237, .68) 38%,
+        rgba(34, 211, 238, .22) 78%,
+        rgba(34, 211, 238, .04) 100%);
+      --card-tint-hover: linear-gradient(to top,
+        rgba(67, 20, 145, .94) 0%,
+        rgba(147, 51, 234, .72) 38%,
+        rgba(34, 211, 238, .26) 78%,
+        rgba(34, 211, 238, .06) 100%);
+    }
+    .dark {
+      --bg: #07080c;
+      --fg: #f5f5f7;
+      --muted: #9a9ba6;
+      --line: rgba(255,255,255,.08);
+      --card: rgba(20,21,28,.55);
+      --card-strong: rgba(20,21,28,.78);
+      --accent: #c4b5fd;
+      --glow-a: rgba(167,139,250,.30);
+      --glow-b: rgba(34,211,238,.22);
+      --glow-c: rgba(232,121,249,.22);
+      --card-tint: linear-gradient(to top, rgba(0,0,0,.92) 0%, rgba(0,0,0,.7) 45%, rgba(0,0,0,.3) 100%);
+      --card-tint-hover: linear-gradient(to top, rgba(0,0,0,.92) 0%, rgba(0,0,0,.7) 45%, rgba(0,0,0,.3) 100%);
+    }
+
+    html { scroll-behavior: smooth; }
+    body {
+      background: var(--bg);
+      color: var(--fg);
+      font-feature-settings: "ss01","cv11";
+      -webkit-font-smoothing: antialiased;
+    }
+
+    .display { font-family: "Instrument Serif", Georgia, serif; letter-spacing: -.01em; font-weight: 400; }
+    .display em { font-style: italic; color: var(--accent); }
+
+    .kicker {
+      display: inline-flex; align-items: center; gap: .55rem;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      font-size: .72rem; letter-spacing: .18em; text-transform: uppercase; color: var(--muted);
+    }
+    .kicker::before {
+      content: ""; width: 22px; height: 1px; background: currentColor; opacity: .5;
+    }
+
+    /* Mesh + texture */
+    .mesh { position: fixed; inset: 0; z-index: -2; pointer-events: none; overflow: hidden; }
+    .mesh::before, .mesh::after, .mesh > span {
+      content: ""; position: absolute; border-radius: 9999px; filter: blur(80px);
+      will-change: transform;
+    }
+    .mesh::before {
+      width: 52vw; height: 52vw; left: -10vw; top: -12vw;
+      background: var(--glow-a); animation: floatA 22s ease-in-out infinite alternate;
+    }
+    .mesh::after {
+      width: 48vw; height: 48vw; right: -14vw; top: 24vh;
+      background: var(--glow-b); animation: floatB 26s ease-in-out infinite alternate;
+    }
+    .mesh > span {
+      width: 40vw; height: 40vw; left: 30vw; bottom: -18vw;
+      background: var(--glow-c); animation: floatC 30s ease-in-out infinite alternate;
+    }
+    @keyframes floatA { to { transform: translate3d(8vw, 6vh, 0) scale(1.1); } }
+    @keyframes floatB { to { transform: translate3d(-6vw, -4vh, 0) scale(1.05); } }
+    @keyframes floatC { to { transform: translate3d(-4vw, -8vh, 0) scale(.95); } }
+
+    .texture {
+      position: fixed; inset: 0; z-index: -1; pointer-events: none;
       background-image:
-        linear-gradient(to right, rgba(148,163,184,.08) 1px, transparent 1px),
-        linear-gradient(to bottom, rgba(148,163,184,.08) 1px, transparent 1px);
-      background-size: 22px 22px;
+        linear-gradient(to right, var(--line) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--line) 1px, transparent 1px);
+      background-size: 56px 56px;
+      mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse at center, black 30%, transparent 75%);
+      opacity: .55;
     }
-    /* Back button ripple */
-    .btn-ripple{position:relative;overflow:hidden;isolation:isolate}
-    .btn-ripple:after{
-      content:""; position:absolute; inset:0;
-      background:radial-gradient(closest-side,rgba(255,255,255,.14),transparent);
-      transform:translateX(-120%) scale(.9); filter:blur(8px); transition:transform .5s ease;
+
+    /* Cursor spotlight */
+    .spotlight {
+      position: fixed; pointer-events: none; z-index: 0;
+      width: 600px; height: 600px;
+      left: var(--mx, 50%); top: var(--my, 50%);
+      transform: translate(-50%, -50%);
+      background: radial-gradient(circle, rgba(167,139,250,.10), transparent 60%);
+      transition: opacity .4s ease;
+      mix-blend-mode: screen;
     }
-    .btn-ripple:hover:after{transform:translateX(0) scale(1)}
+    .dark .spotlight {
+      background: radial-gradient(circle, rgba(167,139,250,.18), transparent 60%);
+    }
+    @media (hover: none) { .spotlight { display: none; } }
+
+    /* Theme view-transition (circular reveal) */
+    @supports (view-transition-name: root) {
+      ::view-transition-old(root),
+      ::view-transition-new(root) {
+        animation: none;
+        mix-blend-mode: normal;
+      }
+      ::view-transition-old(root) { z-index: 1; }
+      ::view-transition-new(root) { z-index: 2; }
+    }
+
+    /* Buttons */
+    .btn {
+      display: inline-flex; align-items: center; gap: .5rem;
+      padding: .55rem .95rem; border-radius: 9999px;
+      border: 1px solid var(--line); background: var(--card);
+      transition: transform .25s ease, background .25s ease, border-color .25s ease, color .25s ease;
+      font-size: .85rem; backdrop-filter: blur(10px);
+    }
+    .btn:hover { transform: translateY(-2px); border-color: color-mix(in oklab, var(--fg) 28%, transparent); }
+
+    /* Tag chips */
+    .tag {
+      padding: .4rem .8rem; border-radius: 9999px;
+      border: 1px solid var(--line); background: var(--card);
+      font-size: .72rem; letter-spacing: .04em;
+      color: var(--muted); transition: all .25s ease;
+      backdrop-filter: blur(8px);
+      text-transform: lowercase;
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+    }
+    .tag:hover { color: var(--fg); border-color: color-mix(in oklab, var(--fg) 24%, transparent); }
+    .tag.active {
+      background: var(--fg); color: var(--bg); border-color: var(--fg);
+    }
+
+    /* Search */
+    .search-shell {
+      position: relative;
+    }
+    .search-shell input {
+      width: 100%;
+      padding: .75rem 2.6rem .75rem 2.6rem;
+      border-radius: 14px;
+      background: var(--card); backdrop-filter: blur(10px);
+      border: 1px solid var(--line);
+      color: var(--fg); outline: none;
+      font-size: .9rem;
+      transition: border-color .25s ease, box-shadow .25s ease;
+    }
+    .search-shell input:focus {
+      border-color: color-mix(in oklab, var(--accent) 60%, transparent);
+      box-shadow: 0 0 0 4px color-mix(in oklab, var(--accent) 18%, transparent);
+    }
+    .search-shell input::placeholder { color: var(--muted); }
+
+    /* Cards */
+    .card {
+      position: relative;
+      border-radius: 18px;
+      overflow: hidden;
+      isolation: isolate;
+      background: var(--card);
+      backdrop-filter: blur(12px);
+      border: 1px solid var(--line);
+      display: flex; flex-direction: column;
+      transition: transform .45s cubic-bezier(.2,.7,.2,1), border-color .35s ease, box-shadow .5s ease;
+    }
+    .card::before {
+      content: ""; position: absolute; inset: 0; padding: 1px; border-radius: inherit;
+      background: linear-gradient(140deg, rgba(167,139,250,.55), rgba(34,211,238,.45), rgba(232,121,249,.5));
+      -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+      -webkit-mask-composite: xor; mask-composite: exclude;
+      opacity: 0; transition: opacity .4s ease;
+      pointer-events: none;
+      z-index: 4;
+    }
+    .card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 24px 60px -24px color-mix(in oklab, var(--accent) 32%, transparent);
+    }
+    .card:hover::before { opacity: 1; }
+
+    .card-media {
+      position: relative;
+      aspect-ratio: 16/10;
+      overflow: hidden;
+      background: color-mix(in oklab, var(--fg) 6%, transparent);
+      border-bottom: 1px solid var(--line);
+    }
+    .card-media img {
+      position: absolute; inset: 0;
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transform: scale(1.02);
+      transition: transform .9s cubic-bezier(.2,.7,.2,1), filter .5s ease;
+      filter: saturate(.92);
+    }
+    .card:hover .card-media img {
+      transform: scale(1.1);
+      filter: saturate(1.04);
+    }
+    /* Subtle blend at bottom of image into card body */
+    .card-media::after {
+      content: "";
+      position: absolute; inset: 0;
+      background: linear-gradient(to bottom, transparent 58%, color-mix(in oklab, var(--bg) 92%, transparent) 100%);
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .card-arrow {
+      position: absolute; top: 10px; right: 10px; z-index: 3;
+      width: 32px; height: 32px;
+      display: grid; place-items: center;
+      border-radius: 9999px;
+      background: color-mix(in oklab, var(--bg) 78%, transparent);
+      backdrop-filter: blur(10px);
+      border: 1px solid var(--line);
+      color: var(--fg);
+      opacity: 0;
+      transform: translate(8px, -8px) scale(.85);
+      transition: opacity .35s ease, transform .45s cubic-bezier(.2,.7,.2,1);
+    }
+    .card:hover .card-arrow {
+      opacity: 1;
+      transform: translate(0, 0) scale(1);
+    }
+
+    .card-info {
+      padding: 1rem 1.1rem 1.15rem;
+      display: flex; flex-direction: column; gap: .4rem;
+      flex: 1;
+    }
+    .card-title {
+      font-size: 1rem;
+      font-weight: 500;
+      line-height: 1.3;
+      color: var(--fg);
+      letter-spacing: -.005em;
+      transition: color .3s ease;
+    }
+    .card:hover .card-title { color: color-mix(in oklab, var(--accent) 70%, var(--fg)); }
+    .card-desc {
+      font-size: .78rem;
+      color: var(--muted);
+      line-height: 1.5;
+    }
+    .card-tags {
+      display: flex; flex-wrap: wrap; gap: .35rem;
+      margin-top: .25rem;
+    }
+    .card-tag {
+      font-size: .62rem;
+      padding: .18rem .5rem;
+      border-radius: 9999px;
+      background: color-mix(in oklab, var(--fg) 4%, transparent);
+      border: 1px solid var(--line);
+      color: var(--muted);
+      font-family: 'JetBrains Mono', ui-monospace, monospace;
+      letter-spacing: .04em;
+      transition: color .3s ease, border-color .3s ease;
+    }
+    .card:hover .card-tag {
+      color: var(--fg);
+      border-color: color-mix(in oklab, var(--fg) 18%, transparent);
+    }
+
+    /* Theme slider */
+    .theme-switch {
+      position: relative; height: 28px; width: 56px; border-radius: 9999px;
+      border: 1px solid var(--line); background: var(--card);
+      transition: background .25s ease, border-color .25s ease;
+    }
+    .theme-switch:focus { outline: none; box-shadow: 0 0 0 3px color-mix(in oklab, var(--accent) 28%, transparent); }
+    .theme-thumb {
+      position: absolute; top: 2px; left: 2px;
+      width: 22px; height: 22px; border-radius: 9999px;
+      background: var(--fg);
+      transition: transform .35s cubic-bezier(.2,.7,.2,1);
+    }
+    .dark .theme-thumb { transform: translateX(28px); }
+    .theme-icon { position: absolute; top: 6px; width: 16px; height: 16px; color: var(--muted); transition: opacity .25s ease; }
+    .theme-icon.sun  { left: 6px; opacity: 1; }
+    .theme-icon.moon { right: 6px; opacity: 0; }
+    .dark .theme-icon.sun { opacity: 0; }
+    .dark .theme-icon.moon { opacity: 1; }
+
+    /* Scrollbar */
+    .beauty-scroll::-webkit-scrollbar { height: 10px; }
+    .beauty-scroll::-webkit-scrollbar-thumb {
+      background: linear-gradient(90deg, color-mix(in oklab, var(--accent) 40%, transparent), rgba(34,211,238,.45));
+      border-radius: 9999px;
+    }
+    .beauty-scroll { scrollbar-width: thin; }
+
+    /* Empty state */
+    .empty {
+      grid-column: 1 / -1;
+      padding: 4rem 1rem; text-align: center; color: var(--muted);
+      border: 1px dashed var(--line); border-radius: 18px;
+      background: var(--card); backdrop-filter: blur(10px);
+    }
+
+    /* Fade up — fly in from the entry direction */
+    .fade-up {
+      opacity: 0;
+      transform: translate3d(0, 64px, 0) scale(.96);
+      transition:
+        opacity .85s cubic-bezier(0.16, 1, 0.3, 1),
+        transform .85s cubic-bezier(0.16, 1, 0.3, 1);
+      will-change: opacity, transform;
+    }
+    .fade-up[data-dir="up"] {
+      transform: translate3d(0, -64px, 0) scale(.96);
+    }
+    .fade-up.in {
+      opacity: 1;
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    /* Selection */
+    ::selection { background: color-mix(in oklab, var(--accent) 35%, transparent); color: var(--fg); }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: .01ms !important; animation-iteration-count: 1 !important;
+        transition-duration: .01ms !important; scroll-behavior: auto !important;
+      }
+    }
   </style>
-  <!-- Prevent flash: set theme before paint -->
-  <script>
-    (function(){
-      try{
-        const stored = localStorage.getItem('theme');
-        const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
-        const useDark = stored ? stored === 'dark' : prefersDark;
-        document.documentElement.classList.toggle('dark', useDark);
-      }catch(e){}
-    })();
-  </script>
 </head>
-<body class="min-h-screen bg-white text-slate-900 dark:bg-slate-950 dark:text-slate-100 font-ui selection:bg-indigo-500/30 selection:text-white/95">
-  <!-- Ambient glow + subtle grid so it never feels empty -->
-  <div class="pointer-events-none fixed inset-0 -z-10">
-    <div class="absolute -top-24 -left-24 h-[28rem] w-[36rem] rounded-full blur-[120px] opacity-25 dark:opacity-30 bg-gradient-to-br from-indigo-600/30 via-fuchsia-500/25 to-cyan-400/30"></div>
-    <div class="absolute -bottom-24 -right-24 h-[26rem] w-[30rem] rounded-full blur-[120px] opacity-15 dark:opacity-20 bg-gradient-to-tr from-cyan-400/25 to-indigo-600/25"></div>
-    <div class="absolute inset-0 opacity-[.14] dark:opacity-[.18] bg-grid"></div>
-  </div>
+<body class="font-sans">
+
+  <div class="mesh"><span></span></div>
+  <div class="texture"></div>
+  <div class="spotlight"></div>
 
   <header class="max-w-7xl mx-auto px-6 pt-10">
-    <div class="mb-4">
-      <a href="https://somdip-sen.github.io/#home" class="btn-ripple inline-flex items-center gap-2 rounded-xl px-3 py-2 ring-1 ring-black/10 dark:ring-white/10
-                             bg-white/70 dark:bg-slate-900/70 backdrop-blur-md hover:bg-white/90 dark:hover:bg-slate-900/90 transition">
-        <svg viewBox="0 0 24 24" class="h-5 w-5 -ml-0.5" fill="currentColor" aria-hidden="true">
-          <path d="M10.828 12 16.07 6.757 14.656 5.343 8 12l6.657 6.657 1.414-1.414z"/>
+    <div class="mb-8">
+      <a href="index.html#home" class="btn">
+        <svg viewBox="0 0 24 24" class="h-4 w-4" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="M15 18l-6-6 6-6"/>
         </svg>
-        <span class="text-sm font-medium">Back to Portfolio</span>
+        Back to Portfolio
       </a>
     </div>
 
-    <h1 class="text-3xl sm:text-4xl font-semibold tracking-tight">
-      <span class="bg-clip-text text-transparent bg-gradient-to-r from-indigo-400 via-fuchsia-400 to-cyan-300">
-        Appendix: All Projects
-      </span>
+    <div class="kicker mb-4">Index</div>
+    <h1 class="display text-[clamp(2.6rem,6.5vw,5rem)] leading-[1.02] tracking-tight">
+      All <em>projects.</em>
     </h1>
-    <p class="mt-2 text-slate-600 dark:text-slate-300/90">Browse all projects or filter by tags.</p>
+    <p class="mt-4 text-[15px] text-[color:var(--muted)] max-w-xl">
+      Browse all projects or filter by tags — search by title, description, or technology.
+    </p>
 
     <!-- Controls -->
-    <div class="mt-6 flex flex-col md:flex-row gap-3 md:items-center">
-      <div class="relative w-full md:max-w-md">
-        <input id="q" type="search" placeholder="Search projects (title, tags)…"
-               class="w-full rounded-lg bg-white/70 dark:bg-slate-900/70 ring-1 ring-black/10 dark:ring-white/10 px-3 py-2 outline-none
-                      placeholder:text-slate-400 focus:ring-2 focus:ring-indigo-500/70">
-        <svg viewBox="0 0 24 24" class="pointer-events-none absolute right-3 top-2.5 h-5 w-5 text-slate-400"><path fill="currentColor" d="m20.6 19.2-4.3-4.3a7.1 7.1 0 1 0-1.4 1.4l4.3 4.3 1.4-1.4zM10.5 16a5.5 5.5 0 1 1 0-11 5.5 5.5 0 0 1 0 11z"/></svg>
+    <div class="mt-10 grid lg:grid-cols-12 gap-5 items-center">
+      <div class="lg:col-span-5 search-shell">
+        <svg viewBox="0 0 24 24" class="absolute left-3.5 top-1/2 -translate-y-1/2 h-4 w-4 text-[color:var(--muted)]" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+          <circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>
+        </svg>
+        <input id="q" type="search" placeholder="Search projects, tags, tech…" />
+        <kbd class="absolute right-3 top-1/2 -translate-y-1/2 text-[10px] font-mono px-1.5 py-0.5 rounded border border-[var(--line)] text-[color:var(--muted)]">⌘K</kbd>
       </div>
 
-      <div class="flex flex-wrap gap-2">
-        <!-- Tag chips -->
-        <button data-tag="all" class="tag px-3 py-1 text-xs rounded-full bg-slate-200/70 dark:bg-slate-800/80 ring-1 ring-black/10 dark:ring-white/10 hover:bg-slate-300/60 dark:hover:bg-slate-700/70">All</button>
-        <button data-tag="ml" class="tag px-3 py-1 text-xs rounded-full bg-slate-200/70 dark:bg-slate-800/80 ring-1 ring-black/10 dark:ring-white/10 hover:bg-slate-300/60 dark:hover:bg-slate-700/70">ML</button>
-        <button data-tag="cv" class="tag px-3 py-1 text-xs rounded-full bg-slate-200/70 dark:bg-slate-800/80 ring-1 ring-black/10 dark:ring-white/10 hover:bg-slate-300/60 dark:hover:bg-slate-700/70">CV</button>
-        <button data-tag="rag" class="tag px-3 py-1 text-xs rounded-full bg-slate-200/70 dark:bg-slate-800/80 ring-1 ring-black/10 dark:ring-white/10 hover:bg-slate-300/60 dark:hover:bg-slate-700/70">RAG</button>
-        <button data-tag="llm" class="tag px-3 py-1 text-xs rounded-full bg-slate-200/70 dark:bg-slate-800/80 ring-1 ring-black/10 dark:ring-white/10 hover:bg-slate-300/60 dark:hover:bg-slate-700/70">LLM</button>
-        <button data-tag="android" class="tag px-3 py-1 text-xs rounded-full bg-slate-200/70 dark:bg-slate-800/80 ring-1 ring-black/10 dark:ring-white/10 hover:bg-slate-300/60 dark:hover:bg-slate-700/70">Android</button>
-        <button data-tag="pytorch" class="tag px-3 py-1 text-xs rounded-full bg-slate-200/70 dark:bg-slate-800/80 ring-1 ring-black/10 dark:ring-white/10 hover:bg-slate-300/60 dark:hover:bg-slate-700/70">Pytorch</button>
+      <div class="lg:col-span-6 flex flex-wrap gap-2">
+        <button data-tag="all"     class="tag active">all</button>
+        <button data-tag="ml"      class="tag">ml</button>
+        <button data-tag="cv"      class="tag">cv</button>
+        <button data-tag="rag"     class="tag">rag</button>
+        <button data-tag="llm"     class="tag">llm</button>
+        <button data-tag="android" class="tag">android</button>
+        <button data-tag="pytorch" class="tag">pytorch</button>
       </div>
 
-      <!-- Light/Dark slider -->
-      <div class="md:ml-auto flex items-center gap-2">
-        <span class="hidden sm:block text-xs text-slate-500 dark:text-slate-400">Light</span>
-        <button id="themeToggle" aria-pressed="false"
-          class="relative h-7 w-14 rounded-full ring-1 ring-black/10 dark:ring-white/10
-                 bg-slate-200 dark:bg-slate-800 transition focus:outline-none focus:ring-2 focus:ring-indigo-500/60">
-          <span id="thumb"
-            class="absolute top-0.5 left-0.5 h-6 w-6 rounded-full bg-white dark:bg-slate-200 shadow
-                   transition-transform will-change-transform"></span>
-          <svg id="sun" viewBox="0 0 24 24" class="absolute left-1.5 top-1.5 h-4 w-4 text-amber-500"></svg>
-          <svg id="moon" viewBox="0 0 24 24" class="absolute right-1.5 top-1.5 h-4 w-4 text-cyan-300 opacity-0"></svg>
+      <div class="lg:col-span-1 flex items-center justify-start lg:justify-end gap-3">
+        <button id="themeToggle" class="theme-switch" aria-label="Toggle theme">
+          <svg class="theme-icon sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round">
+            <circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.4 1.4M17.6 17.6 19 19M19 5l-1.4 1.4M5 19l1.4-1.4"/>
+          </svg>
+          <svg class="theme-icon moon" viewBox="0 0 24 24" fill="currentColor"><path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z"/></svg>
+          <span class="theme-thumb"></span>
         </button>
-        <span class="hidden sm:block text-xs text-slate-500 dark:text-slate-400">Dark</span>
       </div>
     </div>
 
-    <p id="count" class="mt-2 text-xs text-slate-500 dark:text-slate-400"></p>
+    <p id="count" class="mt-6 text-xs font-mono text-[color:var(--muted)]"></p>
   </header>
 
-  <main class="max-w-7xl mx-auto px-6 mt-6">
-    <!-- On small screens it's a horizontal rail; md+ switches to dense grid -->
-    <section id="gridWrap" class="group/grid">
+  <main class="max-w-7xl mx-auto px-6 mt-8">
+    <section id="gridWrap">
       <div id="projects"
            class="beauty-scroll md:!overflow-visible flex md:grid gap-6 overflow-x-auto snap-x snap-mandatory pb-4
                   [grid-template-columns:repeat(1,minmax(0,1fr))]
@@ -127,12 +446,19 @@
     </section>
   </main>
 
-  <footer class="max-w-7xl mx-auto px-6 py-10 text-slate-600 dark:text-slate-400/80">
-    Built with Tailwind by Somdip • Deployed on GitHub Pages
+  <footer class="max-w-7xl mx-auto px-6 py-14 text-xs font-mono text-[color:var(--muted)]">
+    Somdip Sen · Built with Tailwind · Deployed on GitHub Pages
   </footer>
 
   <script>
-    // ---------- Data ----------
+    /* ---------- Cursor spotlight ---------- */
+    const spotlight = document.querySelector('.spotlight');
+    window.addEventListener('pointermove', (e) => {
+      spotlight.style.setProperty('--mx', e.clientX + 'px');
+      spotlight.style.setProperty('--my', e.clientY + 'px');
+    });
+
+    /* ---------- Data ---------- */
     const PROJECTS = [
       { title: "CV Retrival Copilot", repo: "Somdip-Sen/intelligent_cv_sorter", desc: "LLM Agent · RAG", tags:["llm","rag","vector db","python", "ml", "pytorch"] },
       { title: "Lightweight Face Tracker", repo: "Somdip-Sen/Lightweight_Face_Tracker--MTP", desc: "Detector less Tracker · Autoregression", tags:["cv","mtp","python", "ml", "pytorch"] },
@@ -144,14 +470,13 @@
       { title: "GUI Game (Space Intruder)", repo: "Somdip-Sen/Space_intruder", desc: "Pygames · GUI · Fun Project", tags:["pygames","python", "gui"] },
       { title: "Employee Management webapp", repo: "Somdip-Sen/Employee_management_webapp", desc: "webapp · Python", tags:["python", "webapp", "gui"] },
       { title: "Tourist Management Windows App", repo: "Somdip-Sen/Tourist_Management_System", desc: "windows app · VB.net", tags:["webapp","vb.net", "gui"] },
-
     ];
 
-    // ---------- Helpers ----------
-    const el = (t, cls, attrs={}) => {
+    /* ---------- Helpers ---------- */
+    const el = (t, cls, attrs = {}) => {
       const n = document.createElement(t);
       if (cls) n.className = cls;
-      for (const [k,v] of Object.entries(attrs)) {
+      for (const [k, v] of Object.entries(attrs)) {
         if (k === "text") n.textContent = v;
         else if (k === "html") n.innerHTML = v;
         else n.setAttribute(k, v);
@@ -159,99 +484,139 @@
       return n;
     };
 
-    let state = { q:"", tag:"all" };
+    let state = { q: "", tag: "all" };
 
-    function og(repo){ return `https://opengraph.githubassets.com/1/${repo}`; }
+    function og(repo) { return `https://opengraph.githubassets.com/1/${repo}`; }
 
-    function match(p){
+    function match(p) {
       const q = state.q.trim().toLowerCase();
       const inTag = state.tag === "all" || (p.tags || []).includes(state.tag);
-      const inText = !q || (p.title + " " + (p.desc||"") + " " + (p.tags||[]).join(" ")).toLowerCase().includes(q);
+      const inText = !q || (p.title + " " + (p.desc || "") + " " + (p.tags || []).join(" ")).toLowerCase().includes(q);
       return inTag && inText;
     }
 
-    function card(p){
-      const a = el("a",
-        "group relative snap-start shrink-0 md:shrink md:snap-none rounded-2xl p-[1px] " +
-        "bg-gradient-to-br from-indigo-500/40 via-fuchsia-500/30 to-cyan-500/40 " +
-        "hover:from-indigo-400/70 hover:to-cyan-400/70 transition-all duration-300",
-        { href:`https://github.com/${p.repo}`, target:"_blank", rel:"noopener", "aria-label":`Open repo: ${p.title}` }
-      );
-      const wrap = el("div","relative rounded-[calc(1rem-1px)] bg-white/80 dark:bg-slate-900/80 ring-1 ring-black/10 dark:ring-white/10 overflow-hidden backdrop-blur-md");
-      const media = el("div","relative aspect-[16/10]");
-      const img = el("img","absolute inset-0 h-full w-full object-cover transition-transform duration-300 ease-out group-hover:scale-[1.06]",{
-        loading:"lazy", alt:`Preview of ${p.title} repository`, src:og(p.repo)
+    function card(p, i) {
+      const a = el("a", "card snap-start shrink-0 md:shrink md:snap-none fade-up", {
+        href: `https://github.com/${p.repo}`, target: "_blank", rel: "noopener",
+        "aria-label": `Open repo: ${p.title}`,
+        style: `transition-delay:${Math.min(i * 75, 525)}ms`
       });
 
-      
-      const meta = el("div","absolute inset-x-4 bottom-3 z-20 text-white");
-      const h3 = el("h3","text-base md:text-lg font-semibold drop-shadow-[0_2px_10px_rgba(0,0,0,0.60)]", {text:p.title});
-      const d  = el("p","text-sm text-white/95 drop-shadow-[0_2px_10px_rgba(0,0,0,0.60)]", {text:p.desc || ""});
-      // Full-image tint so text always has contrast on bright OG images
-      const tint = el(
-        "div",
-        // much darker across the whole image
-        "absolute inset-0 z-10 bg-gradient-to-t from-black/90 via-black/75 to-black/55 transition-opacity duration-300"
-      );
+      const media = el("div", "card-media");
+      const img = el("img", "", { loading: "lazy", alt: `Preview of ${p.title} repository`, src: og(p.repo) });
+      media.append(img);
 
-      const tagWrap = el("div","mt-2 flex flex-wrap gap-2");
-      (p.tags||[]).slice(0,3).forEach(t=>{
-        tagWrap.appendChild(el("span","text-xs px-2 py-0.5 rounded-full bg-white/15 ring-1 ring-white/20 text-white/90", {text:t}));
+      const arrow = el("div", "card-arrow", {
+        html: '<svg viewBox="0 0 24 24" width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17 17 7M9 7h8v8"/></svg>'
       });
 
-      meta.append(h3,d,tagWrap);
-      media.append(img, tint);
-      
-      wrap.append(media, meta);
-      a.append(wrap);
+      const info = el("div", "card-info");
+      const h3 = el("h3", "card-title", { text: p.title });
+      const d  = el("p", "card-desc", { text: p.desc || "" });
+      const tagWrap = el("div", "card-tags");
+      (p.tags || []).slice(0, 4).forEach(t => {
+        tagWrap.appendChild(el("span", "card-tag", { text: t }));
+      });
+      info.append(h3, d, tagWrap);
+
+      a.append(media, arrow, info);
       return a;
     }
 
-    function render(){
+    /* Shared observer — re-triggers fly-in on both scroll directions */
+    const cardIO = new IntersectionObserver((entries) => {
+      entries.forEach(e => {
+        const el = e.target;
+        if (e.isIntersecting) {
+          el.classList.add('in');
+        } else {
+          el.classList.remove('in');
+          const rect = el.getBoundingClientRect();
+          if (rect.bottom <= 0) el.dataset.dir = 'up';
+          else if (rect.top >= window.innerHeight) el.dataset.dir = 'down';
+        }
+      });
+    }, { threshold: 0.05, rootMargin: '0px 0px -30px 0px' });
+
+    function render() {
       const root = document.getElementById("projects");
       root.innerHTML = "";
       const items = PROJECTS.filter(match);
-      items.forEach(p => root.appendChild(card(p)));
-      document.getElementById("count").textContent = `${items.length} project${items.length!==1?"s":""} shown`;
+      if (items.length === 0) {
+        root.appendChild(el("div", "empty", { html: `<div class="font-mono text-xs uppercase tracking-widest mb-2">No matches</div><div>Try a different keyword or tag.</div>` }));
+      } else {
+        items.forEach((p, i) => root.appendChild(card(p, i)));
+      }
+      document.getElementById("count").textContent = `${items.length} project${items.length !== 1 ? "s" : ""} shown`;
+
+      // hand the new cards to the observer
+      root.querySelectorAll('.fade-up').forEach(c => cardIO.observe(c));
     }
 
-    // ---------- Interactions ----------
+    /* ---------- Interactions ---------- */
     const q = document.getElementById("q");
     q.addEventListener("input", () => { state.q = q.value; render(); });
 
-    document.querySelectorAll(".tag").forEach(btn=>{
-      btn.addEventListener("click", ()=>{
-        document.querySelectorAll(".tag").forEach(b=>b.classList.remove("ring-indigo-400","bg-indigo-500/10"));
-        btn.classList.add("ring-indigo-400","bg-indigo-500/10");
+    // ⌘K / Ctrl+K focuses search
+    window.addEventListener('keydown', (e) => {
+      if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+        e.preventDefault(); q.focus(); q.select();
+      }
+      if (e.key === 'Escape' && document.activeElement === q) q.blur();
+    });
+
+    document.querySelectorAll(".tag").forEach(btn => {
+      btn.addEventListener("click", () => {
+        document.querySelectorAll(".tag").forEach(b => b.classList.remove("active"));
+        btn.classList.add("active");
         state.tag = btn.dataset.tag;
         render();
       });
     });
-    document.querySelector('[data-tag="all"]').classList.add("ring-indigo-400","bg-indigo-500/10");
 
-    // Theme toggle
-    document.getElementById('sun').innerHTML =
-      '<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4 12H2M22 12h-2M5 5l1.4 1.4M17.6 17.6 19 19M19 5l-1.4 1.4M5 19l1.4-1.4" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>';
-    document.getElementById('moon').innerHTML =
-      '<path d="M21 12.8A9 9 0 1 1 11.2 3 7 7 0 0 0 21 12.8z" fill="currentColor"/>';
-
-    const btn = document.getElementById('themeToggle');
-    const thumb = document.getElementById('thumb');
-
-    function setTheme(mode){
-      const dark = mode==='dark';
+    /* ---------- Theme toggle ---------- */
+    const themeBtn = document.getElementById('themeToggle');
+    function setTheme(mode) {
+      const dark = mode === 'dark';
       document.documentElement.classList.toggle('dark', dark);
       localStorage.setItem('theme', mode);
-      thumb.style.transform = dark ? 'translateX(28px)' : 'translateX(0px)';
-      document.getElementById('sun').style.opacity = dark ? '0' : '1';
-      document.getElementById('moon').style.opacity = dark ? '1' : '0';
-      btn.setAttribute('aria-pressed', String(dark));
+      themeBtn.setAttribute('aria-pressed', String(dark));
     }
-    // initialize from current class
     setTheme(document.documentElement.classList.contains('dark') ? 'dark' : 'light');
-    btn.addEventListener('click', ()=>{
+
+    themeBtn.addEventListener('click', () => {
       const next = document.documentElement.classList.contains('dark') ? 'light' : 'dark';
-      setTheme(next);
+      const reduced = matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+      if (!document.startViewTransition || reduced) {
+        setTheme(next);
+        return;
+      }
+
+      const r = themeBtn.getBoundingClientRect();
+      const x = r.left + r.width / 2;
+      const y = r.top + r.height / 2;
+      const endRadius = Math.hypot(
+        Math.max(x, window.innerWidth - x),
+        Math.max(y, window.innerHeight - y)
+      );
+
+      const transition = document.startViewTransition(() => setTheme(next));
+      transition.ready.then(() => {
+        document.documentElement.animate(
+          {
+            clipPath: [
+              `circle(0px at ${x}px ${y}px)`,
+              `circle(${endRadius}px at ${x}px ${y}px)`
+            ]
+          },
+          {
+            duration: 620,
+            easing: 'cubic-bezier(.2,.7,.2,1)',
+            pseudoElement: '::view-transition-new(root)'
+          }
+        );
+      });
     });
 
     // Initial render
