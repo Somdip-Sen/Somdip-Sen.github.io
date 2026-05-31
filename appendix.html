@@ -210,6 +210,10 @@
       border: 1px solid var(--line);
       display: flex; flex-direction: column;
       transition: transform .45s cubic-bezier(.2,.7,.2,1), border-color .35s ease, box-shadow .5s ease;
+      width: min(82vw, 340px);                       /* mobile horizontal-scroll size */
+    }
+    @media (min-width: 768px) {
+      .card { width: auto; }                          /* grid takes over from md: up */
     }
     .card::before {
       content: ""; position: absolute; inset: 0; padding: 1px; border-radius: inherit;
@@ -338,6 +342,8 @@
       border-radius: 9999px;
     }
     .beauty-scroll { scrollbar-width: thin; }
+    .dark .beauty-scroll::-webkit-scrollbar-thumb { background: #d1d5db; }
+    .dark .beauty-scroll { scrollbar-color: #d1d5db transparent; }
 
     /* Empty state */
     .empty {
@@ -362,6 +368,20 @@
     .fade-up.in {
       opacity: 1;
       transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    /* Cards get a lighter, shorter fly-in so 10 of them don't pile up on the GPU */
+    .card.fade-up {
+      transform: translate3d(0, 32px, 0);
+      transition:
+        opacity .55s cubic-bezier(0.22, 1, 0.36, 1),
+        transform .55s cubic-bezier(0.22, 1, 0.36, 1);
+    }
+    .card.fade-up[data-dir="up"] {
+      transform: translate3d(0, -32px, 0);
+    }
+    .card.fade-up.in {
+      transform: translate3d(0, 0, 0);
     }
 
     /* Selection */
@@ -499,7 +519,7 @@
       const a = el("a", "card snap-start shrink-0 md:shrink md:snap-none fade-up", {
         href: `https://github.com/${p.repo}`, target: "_blank", rel: "noopener",
         "aria-label": `Open repo: ${p.title}`,
-        style: `transition-delay:${Math.min(i * 75, 525)}ms`
+        style: `transition-delay:${Math.min(i * 45, 270)}ms`
       });
 
       const media = el("div", "card-media");
