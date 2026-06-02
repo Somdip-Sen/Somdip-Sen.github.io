@@ -92,10 +92,6 @@
       text-rendering: optimizeLegibility;
     }
 
-    /* Disabled placeholder links */
-    a[href="#"] { pointer-events: none; cursor: default; color: inherit; }
-    a[href="#"]:hover { color: inherit; }
-
     /* ----- Animated mesh background ----- */
     .mesh {
       position: fixed; inset: 0; z-index: -2; pointer-events: none; overflow: hidden;
@@ -281,6 +277,27 @@
       background: var(--fg); color: var(--bg); border-color: var(--fg);
     }
     .btn-primary:hover { background: color-mix(in oklab, var(--fg) 85%, var(--accent)); border-color: transparent; }
+    .project-action {
+      display: inline-flex; align-items: center; gap: .38rem;
+      color: var(--fg); opacity: .82;
+      transition: opacity .25s ease, transform .25s ease, color .25s ease;
+    }
+    .project-action:hover, .project-action:focus-visible {
+      opacity: 1; color: var(--accent); transform: translateY(-1px); outline: none;
+    }
+    .project-action svg { width: .86rem; height: .86rem; flex: none; }
+    .project-status {
+      display: inline-flex; align-items: center; gap: .38rem;
+      padding: .28rem .58rem; border-radius: 9999px;
+      border: 1px solid color-mix(in oklab, var(--accent) 28%, var(--line));
+      background: color-mix(in oklab, var(--accent) 9%, transparent);
+      color: var(--fg); font-size: .72rem;
+    }
+    .project-status .dot {
+      width: .38rem; height: .38rem; border-radius: 9999px;
+      background: #22c55e;
+      box-shadow: 0 0 0 4px color-mix(in oklab, #22c55e 16%, transparent);
+    }
 
     /* Chip */
     .chip {
@@ -449,6 +466,48 @@
 
     /* Modal */
     .modal-backdrop { background: color-mix(in oklab, var(--bg) 30%, rgba(0,0,0,.7)); }
+    .case-panel {
+      background: color-mix(in oklab, var(--bg) 92%, transparent);
+      border: 1px solid var(--line);
+      border-radius: 22px;
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+      box-shadow: 0 30px 90px -32px color-mix(in oklab, var(--accent) 38%, transparent);
+    }
+    .case-metric {
+      border: 1px solid var(--line);
+      background: color-mix(in oklab, var(--fg) 4%, transparent);
+      border-radius: 14px;
+      padding: .85rem;
+    }
+    .case-metric strong {
+      display: block;
+      color: var(--fg);
+      font-size: 1.05rem;
+      line-height: 1.15;
+      font-weight: 600;
+    }
+    .case-metric span {
+      display: block;
+      margin-top: .32rem;
+      color: var(--muted);
+      font-size: .74rem;
+      line-height: 1.35;
+    }
+    .case-list li {
+      position: relative;
+      padding-left: 1rem;
+    }
+    .case-list li::before {
+      content: "";
+      position: absolute;
+      left: 0;
+      top: .68em;
+      width: .32rem;
+      height: .32rem;
+      border-radius: 9999px;
+      background: var(--accent);
+    }
 
     /* Selection */
     ::selection { background: color-mix(in oklab, var(--accent) 35%, transparent); color: var(--fg); }
@@ -628,7 +687,6 @@
           <div class="flex flex-wrap items-baseline gap-x-3 gap-y-1">
             <a href="https://www.tcs.com/" target="_blank" rel="noopener noreferrer" class="text-[15px] font-medium underline underline-offset-4 decoration-[color:var(--accent)] decoration-2 inline-flex items-center gap-1">
               Tata Consultancy Services (TCS)
-              <span aria-hidden="true" class="text-xs opacity-70">↗</span>
             </a>
             <span class="text-[15px] text-[color:var(--muted)]">— Database Administrator</span>
             <span class="text-xs text-[color:var(--muted)] sm:ml-2 font-mono">Aug 2021 – Mar 2023 · Kolkata (Hybrid)</span>
@@ -721,12 +779,15 @@
             <span class="tag">DeepSORT</span>
             <span class="tag">PyTorch</span>
           </div>
-          <div class="mt-6 flex gap-5 text-sm">
+          <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm">
             <a target="_blank" rel="noopener" href="https://github.com/Somdip-Sen/Lightweight_Face_Tracker--MTP.git" class="inline-flex items-center gap-1.5 hover:opacity-70 transition">
               GitHub
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </a>
-            <a href="#" class="inline-flex items-center gap-1.5 opacity-70">Demo (locally available)</a>
+            <button type="button" class="project-action" data-project-case="face-tracker" aria-haspopup="dialog" aria-controls="projectCaseModal" aria-expanded="false">
+              View case study
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5h8M8 12h8M8 19h5"/><path d="M17 17l2 2 4-4"/></svg>
+            </button>
           </div>
         </article>
 
@@ -750,12 +811,15 @@
             <span class="tag">Docker</span>
             <span class="tag">FastAPI</span>
           </div>
-          <div class="mt-6 flex gap-5 text-sm">
+          <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm">
             <a target="_blank" rel="noopener" href="https://github.com/Somdip-Sen/MRI_tumor_detection.git" class="inline-flex items-center gap-1.5 hover:opacity-70 transition">
               GitHub
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </a>
-            <a href="#" class="inline-flex items-center gap-1.5 opacity-70">Demo (locally available)</a>
+            <button type="button" class="project-action" data-project-case="brain-mri" aria-haspopup="dialog" aria-controls="projectCaseModal" aria-expanded="false">
+              View case study
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M8 5h8M8 12h8M8 19h5"/><path d="M17 17l2 2 4-4"/></svg>
+            </button>
           </div>
         </article>
 
@@ -764,7 +828,7 @@
           <div class="flex items-start justify-between gap-4">
             <div>
               <div class="kicker mb-2">LLM · LangGraph</div>
-              <h3 class="text-xl font-medium leading-snug">CV Retrival Copilot for HR (RAG Based)</h3>
+              <h3 class="text-xl font-medium leading-snug">CV Retrieval Copilot for HR (RAG Based)</h3>
             </div>
             <span class="tag whitespace-nowrap">LLM</span>
           </div>
@@ -779,12 +843,16 @@
             <span class="tag">MLflow</span>
             <span class="tag">FastAPI</span>
           </div>
-          <div class="mt-6 flex gap-5 text-sm">
+          <div class="mt-6 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm">
             <a target="_blank" rel="noopener" href="https://github.com/Somdip-Sen/intelligent_cv_sorter.git" class="inline-flex items-center gap-1.5 hover:opacity-70 transition">
               GitHub
               <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </a>
-            <a href="#" class="inline-flex items-center gap-1.5 opacity-70">Work in Progress</a>
+            <span class="project-status"><span class="dot" aria-hidden="true"></span>Active build</span>
+            <button type="button" class="project-action" data-project-case="cv-copilot" aria-haspopup="dialog" aria-controls="projectCaseModal" aria-expanded="false">
+              Progress notes
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 19h16"/><path d="M6 16v-5"/><path d="M12 16V7"/><path d="M18 16v-8"/></svg>
+            </button>
           </div>
         </article>
 
@@ -903,6 +971,41 @@
     </button>
   </div>
 
+  <!-- Project case-study modal -->
+  <div id="projectCaseModal" class="fixed inset-0 z-50 hidden" role="dialog" aria-modal="true" aria-labelledby="projectCaseTitle" aria-describedby="projectCaseSummary">
+    <div class="absolute inset-0 modal-backdrop" data-case-close></div>
+    <div class="absolute inset-0 flex items-center justify-center p-4 sm:p-6">
+      <article id="projectCasePanel" class="case-panel w-full max-w-2xl max-h-[min(86vh,720px)] overflow-y-auto p-5 sm:p-7 opacity-0 scale-95 transition-all transform duration-300">
+        <div class="flex items-start justify-between gap-4">
+          <div>
+            <div id="projectCaseEyebrow" class="kicker mb-3"></div>
+            <h2 id="projectCaseTitle" class="display text-3xl sm:text-4xl leading-tight"></h2>
+          </div>
+          <button id="projectCaseClose" type="button" class="shrink-0 w-9 h-9 grid place-items-center rounded-full border border-[var(--line)] hover:border-[color-mix(in_oklab,var(--fg)_24%,transparent)] transition" aria-label="Close case study" data-case-close>
+            <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M6 6l12 12M6 18L18 6"/></svg>
+          </button>
+        </div>
+
+        <p id="projectCaseSummary" class="mt-4 text-[15px] leading-relaxed text-[color:var(--muted)]"></p>
+
+        <div id="projectCaseMetrics" class="mt-5 grid sm:grid-cols-2 gap-3"></div>
+
+        <div class="mt-6 pt-5 border-t border-[var(--line)]">
+          <h3 class="text-sm font-semibold tracking-wide uppercase text-[color:var(--muted)]">What this shows</h3>
+          <ul id="projectCaseHighlights" class="case-list mt-3 grid gap-2 text-[14.5px] leading-relaxed text-[color:var(--muted)]"></ul>
+        </div>
+
+        <div class="mt-6 flex flex-wrap gap-3">
+          <a id="projectCaseRepo" target="_blank" rel="noopener" class="btn btn-primary">
+            Open GitHub
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
+          <button type="button" class="btn" data-case-close>Close</button>
+        </div>
+      </article>
+    </div>
+  </div>
+
   <script>
     /* ---------- Theme ---------- */
     const themeToggle = document.getElementById('themeToggle');
@@ -979,6 +1082,150 @@
     avatarModal?.querySelectorAll('[data-close]').forEach(el => el.addEventListener('click', closeAvatar));
     avatarModal?.addEventListener('click', (e) => { if (!avatarPanel.contains(e.target)) closeAvatar(); });
     window.addEventListener('keydown', e => { if (e.key === 'Escape' && !avatarModal.classList.contains('hidden')) closeAvatar(); });
+
+    /* ---------- Project case studies ---------- */
+    const projectCases = {
+      'face-tracker': {
+        eyebrow: 'MTP 2025 · Edge vision',
+        title: 'Detector-Free Multi-Face Tracking for Edge Retrieval',
+        summary: 'A two-part MTP deliverable pairing SEA FACES WILD, an in-the-wild Southeast Asia multi-face tracking corpus, with a lightweight retrieval stack designed for shared edge devices.',
+        repo: 'https://github.com/Somdip-Sen/Lightweight_Face_Tracker--MTP.git',
+        metrics: [
+          ['35k+ tracks', 'Multi-face tracks captured across varied scenes'],
+          ['50+ videos', 'City footage used to stress in-the-wild tracking'],
+          ['Detector-free', 'Autoregressive tracker path under active refinement'],
+          ['Edge search', 'Lightweight face retrieval for constrained devices']
+        ],
+        highlights: [
+          'Built the dataset and retrieval pipeline as one connected research artifact.',
+          'Focused on robust track-switch recovery instead of relying on repeated heavyweight detection.',
+          'Used MobileNet V2, ArcFace, DeepSORT, and PyTorch to balance accuracy with deployability.'
+        ]
+      },
+      'brain-mri': {
+        eyebrow: 'Vision · MONAI',
+        title: 'Lightweight Diagnostic: Brain MRI Tumor Detection',
+        summary: 'A browser-ready screening pipeline trained on remote dual A100s with MONAI and packaged for CPU/GPU serving through Docker and FastAPI.',
+        repo: 'https://github.com/Somdip-Sen/MRI_tumor_detection.git',
+        metrics: [
+          ['98.1% recall', 'Reported recall on curated evaluation sets'],
+          ['<1.5% FN', 'False negatives kept low for screening sensitivity'],
+          ['Dual A100', 'Remote training setup for heavier MONAI experiments'],
+          ['CPU/GPU auto', 'Serving image switches based on available compute']
+        ],
+        highlights: [
+          'Optimized the model flow around high recall, where misses are the expensive failure mode.',
+          'Packaged the pipeline as a multi-stage Docker image for repeatable serving.',
+          'Kept the serving path browser-based so reviewers can inspect the workflow without specialized tooling.'
+        ]
+      },
+      'cv-copilot': {
+        eyebrow: 'LLM · LangGraph · Active build',
+        title: 'CV Retrieval Copilot for HR',
+        summary: 'An Indianized multi-agent RAG pipeline that generates synthetic CV-JD pairs, retrieves candidates with a vector database, reranks them, and records experiments for comparison.',
+        repo: 'https://github.com/Somdip-Sen/intelligent_cv_sorter.git',
+        metrics: [
+          ['LangGraph', 'Agent workflow for retrieval, reranking, and judging'],
+          ['FAISS', 'Vector database path for resume-job matching'],
+          ['Langfuse', 'Tracing and observability for agent behavior'],
+          ['MLflow', 'Experiment tracking across retrievers and rerankers']
+        ],
+        highlights: [
+          'Documents the current build around retrieval quality, traceability, and repeatable experiments.',
+          'Shows the planned system boundaries: synthetic data, retrieval, reranking, and committee-style judging.',
+          'Keeps hiring-domain evaluation auditable through tracing and tracked experiments.'
+        ]
+      }
+    };
+
+    const projectCaseModal = document.getElementById('projectCaseModal');
+    const projectCasePanel = document.getElementById('projectCasePanel');
+    const projectCaseClose = document.getElementById('projectCaseClose');
+    const projectCaseEyebrow = document.getElementById('projectCaseEyebrow');
+    const projectCaseTitle = document.getElementById('projectCaseTitle');
+    const projectCaseSummary = document.getElementById('projectCaseSummary');
+    const projectCaseMetrics = document.getElementById('projectCaseMetrics');
+    const projectCaseHighlights = document.getElementById('projectCaseHighlights');
+    const projectCaseRepo = document.getElementById('projectCaseRepo');
+    let activeProjectTrigger = null;
+    let projectCaseClosing = false;
+
+    function metricNode([value, label]) {
+      const item = document.createElement('div');
+      item.className = 'case-metric';
+      const strong = document.createElement('strong');
+      strong.textContent = value;
+      const span = document.createElement('span');
+      span.textContent = label;
+      item.append(strong, span);
+      return item;
+    }
+
+    function highlightNode(text) {
+      const item = document.createElement('li');
+      item.textContent = text;
+      return item;
+    }
+
+    function openProjectCase(key, trigger) {
+      const data = projectCases[key];
+      if (!data) return;
+
+      projectCaseClosing = false;
+      activeProjectTrigger = trigger;
+      projectCaseEyebrow.textContent = data.eyebrow;
+      projectCaseTitle.textContent = data.title;
+      projectCaseSummary.textContent = data.summary;
+      projectCaseRepo.href = data.repo;
+      projectCaseMetrics.replaceChildren(...data.metrics.map(metricNode));
+      projectCaseHighlights.replaceChildren(...data.highlights.map(highlightNode));
+
+      document.querySelectorAll('[data-project-case]').forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+      trigger.setAttribute('aria-expanded', 'true');
+      projectCaseModal.classList.remove('hidden');
+      document.body.classList.add('overflow-hidden');
+      requestAnimationFrame(() => {
+        projectCasePanel.classList.remove('opacity-0','scale-95');
+        projectCasePanel.classList.add('opacity-100','scale-100');
+        projectCaseClose.focus();
+      });
+    }
+
+    function closeProjectCase() {
+      if (!projectCaseModal || projectCaseModal.classList.contains('hidden') || projectCaseClosing) return;
+      projectCaseClosing = true;
+      projectCasePanel.classList.add('opacity-0','scale-95');
+      projectCasePanel.classList.remove('opacity-100','scale-100');
+      document.querySelectorAll('[data-project-case]').forEach(btn => btn.setAttribute('aria-expanded', 'false'));
+      setTimeout(() => {
+        projectCaseModal.classList.add('hidden');
+        document.body.classList.remove('overflow-hidden');
+        activeProjectTrigger?.focus();
+        activeProjectTrigger = null;
+        projectCaseClosing = false;
+      }, 220);
+    }
+
+    document.querySelectorAll('[data-project-case]').forEach(trigger => {
+      trigger.addEventListener('click', () => openProjectCase(trigger.dataset.projectCase, trigger));
+    });
+    projectCaseModal?.querySelectorAll('[data-case-close]').forEach(el => el.addEventListener('click', closeProjectCase));
+    projectCaseModal?.addEventListener('click', (e) => { if (!projectCasePanel.contains(e.target)) closeProjectCase(); });
+    projectCaseModal?.addEventListener('keydown', (e) => {
+      if (e.key !== 'Tab') return;
+      const focusable = [...projectCasePanel.querySelectorAll('a[href], button:not([disabled])')];
+      if (!focusable.length) return;
+      const first = focusable[0];
+      const last = focusable[focusable.length - 1];
+      if (e.shiftKey && document.activeElement === first) {
+        e.preventDefault();
+        last.focus();
+      } else if (!e.shiftKey && document.activeElement === last) {
+        e.preventDefault();
+        first.focus();
+      }
+    });
+    window.addEventListener('keydown', e => { if (e.key === 'Escape') closeProjectCase(); });
 
     /* ---------- Mobile menu ---------- */
     const menuToggle    = document.getElementById('menuToggle');
